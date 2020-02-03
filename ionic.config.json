@@ -1,0 +1,7 @@
+{
+  "name": "suhr",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
