@@ -8,7 +8,7 @@ import { retry, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CardService {
-  apiURL = 'http://localhost:8080';
+  apiURL = 'https://cms.naumann.hosting';
 
   constructor(private http: HttpClient) { }
 
@@ -17,14 +17,14 @@ export class CardService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
-  }  
+  };
   // HttpClient API get() method => Fetch employees list
   getCards(): Observable<Card> {
     return this.http.get<Card>(this.apiURL + '/_/items/home')
     .pipe(
       retry(1),
       catchError(this.handleError)
-    )
+    );
   }
 
   getContacts(): Observable<Card> {
@@ -32,7 +32,7 @@ export class CardService {
     .pipe(
       retry(1),
       catchError(this.handleError)
-    )
+    );
   }
 
   getLinks(): Observable<Card> {
@@ -40,7 +40,7 @@ export class CardService {
     .pipe(
       retry(1),
       catchError(this.handleError)
-    )
+    );
   }
 
   // Error handling 

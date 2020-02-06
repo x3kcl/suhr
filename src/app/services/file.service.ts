@@ -7,7 +7,7 @@ import { retry, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class FileService {
-  apiURL = 'http://localhost:8080';
+  apiURL = 'https://cms.naumann.hosting';
 
   constructor(private http: HttpClient) { }
 
@@ -16,22 +16,22 @@ export class FileService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
-  }
+  };
     // HttpClient API get() method => Fetch employees list
   getFiles(): Observable<File> {
       return this.http.get<File>(this.apiURL + '/_/files?filter[tags][in]=fotos')
       .pipe(
         retry(1),
         catchError(this.handleError)
-      )
+      );
   }
-  
+
   getDocuments(): Observable<File> {
     return this.http.get<File>(this.apiURL + '/_/files?filter[tags][in]=documents')
     .pipe(
       retry(1),
       catchError(this.handleError)
-    )
+    );
   }
 
   getStatistics(): Observable<File> {
@@ -39,7 +39,7 @@ export class FileService {
     .pipe(
       retry(1),
       catchError(this.handleError)
-    )
+    );
   }
 
     // Error handling 
