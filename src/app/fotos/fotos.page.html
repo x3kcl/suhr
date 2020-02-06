@@ -1,9 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>fotos</ion-title>
+    <ion-title>Fotos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <ion-list>
+    <ion-item *ngFor="let file of File">
+      <ion-thumbnail slot="start" class="fotos-class">
+        <ion-img [src]="file.url"></ion-img>
+      </ion-thumbnail>
+      <ion-label>{{file.title}}</ion-label>
+    </ion-item>
+  </ion-list>
+    
 </ion-content>

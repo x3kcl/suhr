@@ -1,9 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>links</ion-title>
+    <ion-title>Links</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label>Links</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let item of Card" [href]="item.url">
+      <ion-icon slot="start" color="medium" name="link"></ion-icon>
+      <ion-label>{{item.title}}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -14,37 +14,37 @@ export class AppComponent {
     {
       title: 'Home',
       url: '/home',
-      icon: 'home'
+      icon: 'information-circle-outline'
     },
     {
       title: 'Dokumente',
       url: '/documents',
-      icon: 'list'
+      icon: 'book'
     },
     {
       title: 'Fotos',
       url: '/fotos',
-      icon: 'list'
+      icon: 'images'
     },
     {
       title: 'Für Euch gelesen',
       url: '/picked',
-      icon: 'list'
+      icon: 'repeat'
     },
     {
       title: 'Statistiken',
       url: '/statistics',
-      icon: 'list'
+      icon: 'stats'
     },
     {
       title: 'Links',
       url: '/links',
-      icon: 'list'
+      icon: 'link'
     },
     {
-      title: 'Kontact',
+      title: 'Kontakt',
       url: '/contact',
-      icon: 'list'
+      icon: 'contact'
     }
   ];
 
