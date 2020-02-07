@@ -42,8 +42,16 @@ export class FileService {
     );
   }
 
+  getPicked(): Observable<File> {
+    return this.http.get<File>(this.apiURL + '/_/files?filter[tags][in]=picked')
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
     // Error handling 
-    handleError(error) {
+  handleError(error) {
       let errorMessage = '';
       if(error.error instanceof ErrorEvent) {
         // Get client-side error

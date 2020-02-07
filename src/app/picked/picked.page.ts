@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FileService } from '../services/file.service';
 
 @Component({
   selector: 'app-picked',
@@ -6,10 +7,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./picked.page.scss'],
 })
 export class PickedPage implements OnInit {
+  File: any = [];
 
-  constructor() { }
+  constructor(
+    public restApi: FileService, 
+  ) {}
 
   ngOnInit() {
+    this.loadPicked()
   }
 
+  // Get employees list
+  loadPicked() {
+    return this.restApi.getPicked().subscribe((data: any ) => {
+      console.log(data);
+      let items = data['data'];
+      let result = [];
+      for ( let item of items ) {
+        let url = item.data.full_url;
+        let tmp = {
+          title: item.title,
+          type: item.type,
+          url: url,
+          description: item.description
+        };
+        result[result.length] = tmp;
+      }    
+      this.File = result;
+    
+      console.log(this.File);      
+    })
+  }
 }
