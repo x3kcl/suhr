@@ -29,7 +29,8 @@ export class DocumentsPage implements OnInit {
           title: item.title,
           type: item.type,
           url: url,
-          description: item.description
+          description: item.description,
+          size: ( item.filesize * 0.001 ).toFixed(2)
         };
         result[result.length] = tmp;
       }    

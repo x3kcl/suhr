@@ -3,5 +3,6 @@ export class File {
     type: string;
     url: string;
     description: string;
+    size: string;
 }
 
