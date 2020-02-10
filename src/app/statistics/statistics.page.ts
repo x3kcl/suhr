@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FileService } from '../services/file.service';
 
+const prettyBytes = require('pretty-bytes');
+
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.page.html',
@@ -29,7 +31,8 @@ export class StatisticsPage implements OnInit {
           title: item.title,
           type: item.type,
           url: url,
-          description: item.description
+          description: item.description,
+          size: prettyBytes(item.filesize)
         };
         result[result.length] = tmp;
       }    

@@ -17,6 +17,7 @@
     <ion-item *ngFor="let file of File" [href]="file.url">
       <ion-icon slot="start" color="medium" name="book"></ion-icon>
       <ion-label>{{file.title}}</ion-label>
+      <ion-badge color="secondary" slot="end">{{file.size}}</ion-badge>
     </ion-item>
   </ion-list>
 </ion-content>

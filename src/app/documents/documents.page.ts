@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FileService } from '../services/file.service';
 
+const prettyBytes = require('pretty-bytes');
+
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.page.html',
   styleUrls: ['./documents.page.scss'],
 })
+
 export class DocumentsPage implements OnInit {
   File: any = [];
 
@@ -30,7 +33,7 @@ export class DocumentsPage implements OnInit {
           type: item.type,
           url: url,
           description: item.description,
-          size: ( item.filesize * 0.001 ).toFixed(2)
+          size: prettyBytes(item.filesize) //( item.filesize * 0.001 ).toFixed(2)
         };
         result[result.length] = tmp;
       }    
