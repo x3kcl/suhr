@@ -24,8 +24,14 @@ export class LinksPage implements OnInit {
       //let items = data.
       //console.log(data['data'][0]);
       this.Card = data['data'];
-      console.log(this.Card);
+      //console.log(this.Card);
     })
+  }
+
+
+  doRefresh(event) {
+    this.loadLinks();
+    event.target.complete();
   }
 
 }

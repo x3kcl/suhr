@@ -38,9 +38,14 @@ export class DocumentsPage implements OnInit {
         result[result.length] = tmp;
       }    
       this.File = result;
-    
-      console.log(this.File);      
+      //console.log(this.File);      
     })
+  }
+
+
+  doRefresh(event) {
+    this.loadDocuments();
+    event.target.complete();
   }
 
 }

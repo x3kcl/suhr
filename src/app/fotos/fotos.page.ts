@@ -42,9 +42,12 @@ export class FotosPage implements OnInit {
         result[result.length] = tmp;
       }    
       this.File = result;
-    
-      console.log(this.File);      
+      //console.log(this.File);      
     })
   }
 
+  doRefresh(event) {
+    this.loadFiles();
+    event.target.complete();
+  }
 }

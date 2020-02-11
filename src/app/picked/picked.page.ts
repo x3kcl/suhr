@@ -38,7 +38,12 @@ export class PickedPage implements OnInit {
       }    
       this.File = result;
     
-      console.log(this.File);      
+      //console.log(this.File);      
     })
+  }
+
+  doRefresh(event) {
+    this.loadPicked();
+    event.target.complete();
   }
 }

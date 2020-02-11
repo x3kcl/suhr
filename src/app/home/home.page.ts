@@ -24,8 +24,13 @@ export class HomePage {
       //let items = data.
       //console.log(data['data'][0]);
       this.Card = data['data'];
-      console.log(this.Card);
+      //console.log(this.Card);
     })
+  }
+
+  doRefresh(event) {
+    this.loadCards();
+    event.target.complete();
   }
 
 }
