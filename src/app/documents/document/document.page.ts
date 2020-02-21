@@ -15,6 +15,7 @@ export class DocumentPage implements OnInit {
   File: any;
   Documents: any = [];
   Document: any;
+  myTitle: string = 'Default Title';
 
   constructor(
     private route: ActivatedRoute,
@@ -25,7 +26,9 @@ export class DocumentPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.Document = this.router.getCurrentNavigation().extras.state.documents;
-        console.log(this.Document);
+        this.myTitle = this.Document.title;
+        //this.Details.title = this.Document.title;
+        console.log("Dokument", this.Document);
       }
     });
   }
@@ -48,11 +51,12 @@ export class DocumentPage implements OnInit {
           //file: item.file,
           created_on: item.created_on,
           documents_id: item.documents_id.id,
-          url: '',
+          url: item.file.data.full_url,
           title: item.file.title,
           size: prettyBytes(item.file.filesize)
         };
         console.log("size", item.file.filesize);
+        /*
         let thumbnails = item.file.data.thumbnails;
         for (let thumbnail of thumbnails) {
           if (thumbnail.dimension === "200x200") {
@@ -63,9 +67,10 @@ export class DocumentPage implements OnInit {
               url: thumbnail.url,
               description: thumbnail.description
             };
-            tmp.url = pic.url;
+            //tmp.url = pic.url;
           }
         }
+        */
         console.log(tmp);
         //this.File = this.loadFileUrl(tmp.file);
         //tmp.url = this.File.url;
