@@ -17,7 +17,13 @@ export class FileService {
       'Content-Type': 'application/json'
     })
   };
-    // HttpClient API get() method => Fetch employees list
+  getFile(id): Observable<File> {
+    return this.http.get<File>(this.apiURL + '/_/files/' + id)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+}
   getFiles(): Observable<File> {
       return this.http.get<File>(this.apiURL + '/_/files?filter[tags][in]=fotos')
       .pipe(

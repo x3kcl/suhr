@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: DocumentsPage
+  },
+  {
+    path: 'document',
+    loadChildren: () => import('./document/document.module').then( m => m.DocumentPageModule)
   }
 ];
 

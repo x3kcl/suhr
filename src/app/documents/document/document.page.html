@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Dokumente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label>Dateien</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let doc of Documents" [href]="doc.url" download>
+      <ion-icon slot="start" color="medium" name="book"></ion-icon>
+      <ion-label>{{doc.title}}</ion-label>
+      <ion-badge color="secondary" slot="end">{{doc.size}}</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>
