@@ -36,6 +36,54 @@ export class ItemsService {
     );
   }
 
+  getFoto(id): Observable<Item> {
+    return this.http.get<Item>(this.apiURL + '/_/items/foto?fields=*.*.*&filter[fotos_id][in]=' + id + '')
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  getFotos(): Observable<Item> {
+    return this.http.get<Item>(this.apiURL + '/_/items/fotos?filter[status][in]=published')
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  getGelesen(id): Observable<Item> {
+    return this.http.get<Item>(this.apiURL + '/_/items/gelesen?fields=*.*.*&filter[gelesenes_id][in]=' + id + '')
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  getGelesenes(): Observable<Item> {
+    return this.http.get<Item>(this.apiURL + '/_/items/gelesenes?filter[status][in]=published')
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  getStatistic(id): Observable<Item> {
+    return this.http.get<Item>(this.apiURL + '/_/items/statistic?fields=*.*.*&filter[statistics_id][in]=' + id + '')
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  getStatistics(): Observable<Item> {
+    return this.http.get<Item>(this.apiURL + '/_/items/statistics?filter[status][in]=published')
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
   // Error handling 
   handleError(error) {
     let errorMessage = '';

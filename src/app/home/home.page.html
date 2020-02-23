@@ -13,7 +13,13 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>  
-  <img src="/assets/pictures/home/suhr.jpg" alt=""/>
+  <ion-grid>
+    <ion-row>
+      <ion-col><img src="/assets/pictures/home/suhr.jpg" alt=""/></ion-col>
+      <ion-col><img src="/assets/pictures/home/logo_smal.png" alt="" class="suhr_smal"/></ion-col>
+    </ion-row>
+  </ion-grid>
+  
   <ion-card *ngFor="let card of Card">
     <ion-card-header>
       <ion-card-title>{{ card.title }}</ion-card-title>

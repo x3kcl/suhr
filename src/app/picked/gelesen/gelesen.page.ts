@@ -1,20 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import * as prettyBytes from 'pretty-bytes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemsService } from 'src/app/services/items.service';
 import { FileService } from 'src/app/services/file.service';
-import * as prettyBytes from 'pretty-bytes';
 
 @Component({
-  selector: 'app-document',
-  templateUrl: './document.page.html',
-  styleUrls: ['./document.page.scss'],
+  selector: 'app-gelesen',
+  templateUrl: './gelesen.page.html',
+  styleUrls: ['./gelesen.page.scss'],
 })
-
-
-export class DocumentPage implements OnInit {
+export class GelesenPage implements OnInit {
   File: any;
-  Documents: any = [];
-  Document: any;
+  Gelesenes: any = [];
+  Gelesen: any;
   myTitle: string = 'Default Title';
 
   constructor(
@@ -25,19 +23,19 @@ export class DocumentPage implements OnInit {
   ) {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.Document = this.router.getCurrentNavigation().extras.state.documents;
-        this.myTitle = this.Document.title;
-        console.log("Dokument", this.Document);
+        this.Gelesen = this.router.getCurrentNavigation().extras.state.documents;
+        this.myTitle = this.Gelesen.title;
+        console.log("Gelesen", this.Gelesen);
       }
     });
   }
 
   ngOnInit() {
-    this.loadDocument();
+    this.loadGelesen();
   }
 
-  loadDocument() {
-    return this.document.getDocument(this.Document.id).subscribe((data: any) => {
+  loadGelesen() {
+    return this.document.getGelesen(this.Gelesen.id).subscribe((data: any) => {
       //console.log(data);
       let items = data['data'];
       let result = [];
@@ -48,7 +46,7 @@ export class DocumentPage implements OnInit {
           status: item.status,
           owner: item.owner.id,
           created_on: item.created_on,
-          documents_id: item.documents_id.id,
+          gelesenes_id: item.gelesenes_id.id,
           url: item.file.data.full_url,
           title: item.file.title,
           size: prettyBytes(item.file.filesize)
@@ -56,7 +54,7 @@ export class DocumentPage implements OnInit {
         //console.log("size", item.file.filesize);
         result[result.length] = tmp;
       }
-      this.Documents = result;
+      this.Gelesenes = result;
     })
   }
 

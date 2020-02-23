@@ -1,20 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import * as prettyBytes from 'pretty-bytes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemsService } from 'src/app/services/items.service';
 import { FileService } from 'src/app/services/file.service';
-import * as prettyBytes from 'pretty-bytes';
 
 @Component({
-  selector: 'app-document',
-  templateUrl: './document.page.html',
-  styleUrls: ['./document.page.scss'],
+  selector: 'app-foto',
+  templateUrl: './foto.page.html',
+  styleUrls: ['./foto.page.scss'],
 })
-
-
-export class DocumentPage implements OnInit {
+export class FotoPage implements OnInit {
   File: any;
-  Documents: any = [];
-  Document: any;
+  Fotos: any = [];
+  Foto: any;
   myTitle: string = 'Default Title';
 
   constructor(
@@ -25,19 +23,19 @@ export class DocumentPage implements OnInit {
   ) {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.Document = this.router.getCurrentNavigation().extras.state.documents;
-        this.myTitle = this.Document.title;
-        console.log("Dokument", this.Document);
+        this.Foto = this.router.getCurrentNavigation().extras.state.documents;
+        this.myTitle = this.Foto.title;
+        console.log("Foto", this.Foto);
       }
     });
   }
 
   ngOnInit() {
-    this.loadDocument();
+    this.loadFoto();
   }
 
-  loadDocument() {
-    return this.document.getDocument(this.Document.id).subscribe((data: any) => {
+  loadFoto() {
+    return this.document.getFoto(this.Foto.id).subscribe((data: any) => {
       //console.log(data);
       let items = data['data'];
       let result = [];
@@ -48,7 +46,7 @@ export class DocumentPage implements OnInit {
           status: item.status,
           owner: item.owner.id,
           created_on: item.created_on,
-          documents_id: item.documents_id.id,
+          fotos_id: item.fotos_id.id,
           url: item.file.data.full_url,
           title: item.file.title,
           size: prettyBytes(item.file.filesize)
@@ -56,8 +54,7 @@ export class DocumentPage implements OnInit {
         //console.log("size", item.file.filesize);
         result[result.length] = tmp;
       }
-      this.Documents = result;
+      this.Fotos = result;
     })
   }
-
 }

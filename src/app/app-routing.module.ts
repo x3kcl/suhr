@@ -24,8 +24,16 @@ const routes: Routes = [
     loadChildren: () => import('./fotos/fotos.module').then( m => m.FotosPageModule)
   },
   {
+    path: 'foto',
+    loadChildren: () => import('./fotos/foto/foto.module').then( m => m.FotoPageModule)
+  },
+  {
     path: 'picked',
     loadChildren: () => import('./picked/picked.module').then( m => m.PickedPageModule)
+  },
+  {
+    path: 'gelesen',
+    loadChildren: () => import('./picked/gelesen/gelesen.module').then( m => m.GelesenPageModule)
   },
   {
     path: 'contact',
@@ -34,6 +42,10 @@ const routes: Routes = [
   {
     path: 'statistics',
     loadChildren: () => import('./statistics/statistics.module').then( m => m.StatisticsPageModule)
+  },
+  {
+    path: 'statistic',
+    loadChildren: () => import('./statistics/statistic/statistic.module').then( m => m.StatisticPageModule)
   },
   {
     path: 'links',

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FileService } from '../services/file.service';
+import { ItemsService } from '../services/items.service';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-fotos',
@@ -7,17 +9,48 @@ import { FileService } from '../services/file.service';
   styleUrls: ['./fotos.page.scss'],
 })
 export class FotosPage implements OnInit {
-
-  //http://localhost:8080/_/files?filter[tags][in]=iway
-
   File: any = [];
+  Fotos: any = [];
 
   constructor(
     public restApi: FileService, 
+    public documents: ItemsService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
-    this.loadFiles()
+    this.loadFotoSections()
+  }
+
+  loadFotoSections() {
+    return this.documents.getFotos().subscribe((data: any ) => {
+      console.log(data);
+      let items = data['data'];
+      let result = [];
+      for ( let item of items ) {
+        let url = '/foto/';// + item.id;
+        let tmp = {
+          id: item.id,
+          status: item.status,
+          owner: item.owner,
+          created_on: item.created_on,
+          title: item.title,
+          url: url
+        };
+        result[result.length] = tmp;
+      }    
+      this.Fotos = result;
+    } )
+  }
+
+  openDetailsWithState(documents) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        documents: documents
+      }
+    };
+    console.log(documents);
+    this.router.navigate(['foto'], navigationExtras);
   }
 
   // Get employees list

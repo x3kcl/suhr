@@ -12,7 +12,6 @@ import { NavigationExtras, Router } from '@angular/router';
 })
 
 export class DocumentsPage implements OnInit {
-  //apiURL = 'https://cms.naumann.hosting';
   File: any = [];
   Documents: any = [];
 
@@ -23,7 +22,6 @@ export class DocumentsPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    //this.loadDocuments()
     this.loadDocumentSections()
   }
 

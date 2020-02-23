@@ -17,7 +17,7 @@
     <ion-list-header>
       <ion-label>Dateien</ion-label>
     </ion-list-header>
-    <ion-item *ngFor="let document of Documents" (click)="openDetailsWithState(document)">
+    <ion-item *ngFor="let document of Documents" (click)="openDetailsWithState(document)" button>
       <ion-icon slot="start" color="medium" name="book"></ion-icon>
       <ion-label>{{document.title}}</ion-label>
       <ion-badge color="secondary" slot="end">{{document.status}}</ion-badge>

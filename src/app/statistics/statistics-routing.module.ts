@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: StatisticsPage
+  },
+  {
+    path: 'statistic',
+    loadChildren: () => import('./statistic/statistic.module').then( m => m.StatisticPageModule)
   }
 ];
 
