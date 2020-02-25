@@ -34,7 +34,7 @@ export class AppComponent {
     {
       title: 'Statistiken',
       url: '/statistics',
-      icon: 'stats'
+      icon: 'stats-chart-outline'
     },
     {
       title: 'Links',
@@ -44,7 +44,7 @@ export class AppComponent {
     {
       title: 'Kontakt',
       url: '/contact',
-      icon: 'contact'
+      icon: 'mail-outline'
     }
   ];
 
