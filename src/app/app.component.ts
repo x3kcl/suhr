@@ -27,7 +27,7 @@ export class AppComponent {
       icon: 'images'
     },
     {
-      title: 'Für Euch gelesen',
+      title: 'Presse',
       url: '/picked',
       icon: 'repeat'
     },

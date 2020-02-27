@@ -15,7 +15,8 @@ export class DocumentPage implements OnInit {
   File: any;
   Documents: any = [];
   Document: any;
-  myTitle: string = 'Default Title';
+  myTitle: string = '';
+  id: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,11 +24,16 @@ export class DocumentPage implements OnInit {
     public document: ItemsService,
     public restApi: FileService,
   ) {
+    this.id = this.route.snapshot.params.id;
+    console.log("got id " + this.id);
+    //this.Document.id = this.id;
+
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.Document = this.router.getCurrentNavigation().extras.state.documents;
         this.myTitle = this.Document.title;
         console.log("Dokument", this.Document);
+        //console.log("got id " + this.id);
       }
     });
   }
@@ -37,8 +43,8 @@ export class DocumentPage implements OnInit {
   }
 
   loadDocument() {
-    return this.document.getDocument(this.Document.id).subscribe((data: any) => {
-      //console.log(data);
+    return this.document.getDocument(this.id).subscribe((data: any) => {
+      console.log(data);
       let items = data['data'];
       let result = [];
       let url = "";
@@ -51,12 +57,14 @@ export class DocumentPage implements OnInit {
           documents_id: item.documents_id.id,
           url: item.file.data.full_url,
           title: item.file.title,
-          size: prettyBytes(item.file.filesize)
+          size: prettyBytes(item.file.filesize),
+          filename_download: item.file.data.filename_download
         };
         //console.log("size", item.file.filesize);
         result[result.length] = tmp;
       }
       this.Documents = result;
+
     })
   }
 

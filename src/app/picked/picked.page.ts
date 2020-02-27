@@ -30,7 +30,7 @@ export class PickedPage implements OnInit {
       let items = data['data'];
       let result = [];
       for ( let item of items ) {
-        let url = '/gelesen/';// + item.id;
+        let url = '/gelesen/' + item.id;
         let tmp = {
           id: item.id,
           status: item.status,

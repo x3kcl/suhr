@@ -28,7 +28,7 @@ export class FotosPage implements OnInit {
       let items = data['data'];
       let result = [];
       for ( let item of items ) {
-        let url = '/foto/';// + item.id;
+        let url = '/foto/' + item.id;
         let tmp = {
           id: item.id,
           status: item.status,

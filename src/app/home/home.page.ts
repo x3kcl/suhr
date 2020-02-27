@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CardService } from "../services/card.service";
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -12,10 +13,12 @@ export class HomePage {
 
   constructor(
     public restApi: CardService, 
+    private menu: MenuController,
   ) {}
 
   ngOnInit() {
-    this.loadCards()
+    this.loadCards();
+    this.openMenu();
   }
 
   // Get employees list
@@ -26,6 +29,11 @@ export class HomePage {
       this.Card = data['data'];
       //console.log(this.Card);
     })
+  }
+
+  openMenu() {
+    this.menu.enable(true, 'main-content');
+    this.menu.open('main-content');
   }
 
   doRefresh(event) {

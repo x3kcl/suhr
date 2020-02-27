@@ -13,7 +13,8 @@ export class GelesenPage implements OnInit {
   File: any;
   Gelesenes: any = [];
   Gelesen: any;
-  myTitle: string = 'Default Title';
+  myTitle: string = '';
+  id: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,6 +22,9 @@ export class GelesenPage implements OnInit {
     public document: ItemsService,
     public restApi: FileService,
   ) {
+    this.id = this.route.snapshot.params.id;
+    console.log("got id " + this.id);
+
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.Gelesen = this.router.getCurrentNavigation().extras.state.documents;
@@ -35,7 +39,7 @@ export class GelesenPage implements OnInit {
   }
 
   loadGelesen() {
-    return this.document.getGelesen(this.Gelesen.id).subscribe((data: any) => {
+    return this.document.getGelesen(this.id).subscribe((data: any) => {
       //console.log(data);
       let items = data['data'];
       let result = [];

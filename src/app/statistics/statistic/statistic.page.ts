@@ -14,6 +14,7 @@ export class StatisticPage implements OnInit {
   Statistics: any = [];
   Statistic: any;
   myTitle: string = 'Default Title';
+  id: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,6 +22,9 @@ export class StatisticPage implements OnInit {
     public document: ItemsService,
     public restApi: FileService,
   ) {
+    this.id = this.route.snapshot.params.id;
+    console.log("got id " + this.id);
+
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.Statistic = this.router.getCurrentNavigation().extras.state.documents;
@@ -35,7 +39,7 @@ export class StatisticPage implements OnInit {
   }
 
   loadStatistic() {
-    return this.document.getStatistic(this.Statistic.id).subscribe((data: any) => {
+    return this.document.getStatistic(this.id).subscribe((data: any) => {
       //console.log(data);
       let items = data['data'];
       let result = [];

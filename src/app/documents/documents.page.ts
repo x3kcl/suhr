@@ -31,7 +31,7 @@ export class DocumentsPage implements OnInit {
       let items = data['data'];
       let result = [];
       for ( let item of items ) {
-        let url = '/document/';// + item.id;
+        let url = '/document/' + item.id;
         let tmp = {
           id: item.id,
           status: item.status,

@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./documents/documents.module').then( m => m.DocumentsPageModule)
   },
   {
-    path: 'document',
+    path: 'document/:id',
     loadChildren: () => import('./documents/document/document.module').then( m => m.DocumentPageModule)
   },
   {
@@ -24,7 +24,7 @@ const routes: Routes = [
     loadChildren: () => import('./fotos/fotos.module').then( m => m.FotosPageModule)
   },
   {
-    path: 'foto',
+    path: 'foto/:id',
     loadChildren: () => import('./fotos/foto/foto.module').then( m => m.FotoPageModule)
   },
   {
@@ -32,7 +32,7 @@ const routes: Routes = [
     loadChildren: () => import('./picked/picked.module').then( m => m.PickedPageModule)
   },
   {
-    path: 'gelesen',
+    path: 'gelesen/:id',
     loadChildren: () => import('./picked/gelesen/gelesen.module').then( m => m.GelesenPageModule)
   },
   {
@@ -44,12 +44,16 @@ const routes: Routes = [
     loadChildren: () => import('./statistics/statistics.module').then( m => m.StatisticsPageModule)
   },
   {
-    path: 'statistic',
+    path: 'statistic/:id',
     loadChildren: () => import('./statistics/statistic/statistic.module').then( m => m.StatisticPageModule)
   },
   {
     path: 'links',
     loadChildren: () => import('./links/links.module').then( m => m.LinksPageModule)
+  },
+  { 
+    path: '**',
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   }
 ];
 

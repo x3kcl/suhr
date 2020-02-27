@@ -30,7 +30,7 @@ export class StatisticsPage implements OnInit {
       let items = data['data'];
       let result = [];
       for ( let item of items ) {
-        let url = '/statistic/';// + item.id;
+        let url = '/statistic/' + item.id;
         let tmp = {
           id: item.id,
           status: item.status,

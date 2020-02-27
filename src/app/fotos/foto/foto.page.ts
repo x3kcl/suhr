@@ -13,7 +13,8 @@ export class FotoPage implements OnInit {
   File: any;
   Fotos: any = [];
   Foto: any;
-  myTitle: string = 'Default Title';
+  myTitle: string = '';
+  id: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,6 +22,9 @@ export class FotoPage implements OnInit {
     public document: ItemsService,
     public restApi: FileService,
   ) {
+    this.id = this.route.snapshot.params.id;
+    console.log("got id " + this.id);
+
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.Foto = this.router.getCurrentNavigation().extras.state.documents;
@@ -35,7 +39,7 @@ export class FotoPage implements OnInit {
   }
 
   loadFoto() {
-    return this.document.getFoto(this.Foto.id).subscribe((data: any) => {
+    return this.document.getFoto(this.id).subscribe((data: any) => {
       //console.log(data);
       let items = data['data'];
       let result = [];
