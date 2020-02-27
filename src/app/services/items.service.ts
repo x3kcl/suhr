@@ -20,7 +20,7 @@ export class ItemsService {
   };
 
   getDocument(id): Observable<Item> {
-    return this.http.get<Item>(this.apiURL + '/_/items/document?fields=*.*.*&filter[documents_id][in]=' + id + '')
+    return this.http.get<Item>(this.apiURL + '/_/items/document?fields=*.*.*&filter[status][in]=published&filter[documents_id][in]=' + id + '')
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -36,7 +36,7 @@ export class ItemsService {
   }
 
   getFoto(id): Observable<Item> {
-    return this.http.get<Item>(this.apiURL + '/_/items/foto?fields=*.*.*&filter[fotos_id][in]=' + id + '')
+    return this.http.get<Item>(this.apiURL + '/_/items/foto?fields=*.*.*&filter[status][in]=published&filter[fotos_id][in]=' + id + '')
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -52,7 +52,7 @@ export class ItemsService {
   }
 
   getGelesen(id): Observable<Item> {
-    return this.http.get<Item>(this.apiURL + '/_/items/gelesen?fields=*.*.*&filter[gelesenes_id][in]=' + id + '')
+    return this.http.get<Item>(this.apiURL + '/_/items/gelesen?fields=*.*.*&filter[status][in]=published&filter[gelesenes_id][in]=' + id + '')
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -68,7 +68,7 @@ export class ItemsService {
   }
 
   getStatistic(id): Observable<Item> {
-    return this.http.get<Item>(this.apiURL + '/_/items/statistic?fields=*.*.*&filter[statistics_id][in]=' + id + '')
+    return this.http.get<Item>(this.apiURL + '/_/items/statistic?fields=*.*.*&filter[status][in]=published&filter[statistics_id][in]=' + id + '')
     .pipe(
       retry(1),
       catchError(this.handleError)
