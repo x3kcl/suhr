@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Für Euch gelesen
+      Presse
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -17,7 +17,7 @@
     <ion-list-header>
       <ion-label>Gelesenes</ion-label>
     </ion-list-header>
-    <ion-item *ngFor="let gelesen of Gelesenes" [href]="gelesen.url" button>
+    <ion-item *ngFor="let gelesen of Gelesenes" (click)="openDetailsWithState(gelesen)" button>
       <ion-icon slot="start" color="medium" name="book"></ion-icon>
       <ion-label>{{gelesen.title}}</ion-label>
       <ion-badge color="secondary" slot="end">{{gelesen.status}}</ion-badge>

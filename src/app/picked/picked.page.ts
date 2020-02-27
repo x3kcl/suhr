@@ -21,7 +21,7 @@ export class PickedPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadGelesenesSections()
+    this.loadGelesenesSections();
   }
 
   loadGelesenesSections() {
@@ -40,9 +40,9 @@ export class PickedPage implements OnInit {
           url: url
         };
         result[result.length] = tmp;
-      }    
+      }
       this.Gelesenes = result;
-    } )
+    } );
   }
 
   openDetailsWithState(documents) {
@@ -52,7 +52,7 @@ export class PickedPage implements OnInit {
       }
     };
     console.log(documents);
-    this.router.navigate(['gelesen'], navigationExtras);
+    this.router.navigate(['gelesen/' + documents.id ], navigationExtras);
   }
 
   // Get employees list
@@ -74,7 +74,7 @@ export class PickedPage implements OnInit {
       }    
       this.File = result;
     
-      //console.log(this.File);      
+      // console.log(this.File);
     })
   }
 

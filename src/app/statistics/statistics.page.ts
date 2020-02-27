@@ -52,7 +52,7 @@ export class StatisticsPage implements OnInit {
       }
     };
     console.log(documents);
-    this.router.navigate(['statistic'], navigationExtras);
+    this.router.navigate(['statistic/' + documents.id ], navigationExtras);
   }
 
   // Get employees list

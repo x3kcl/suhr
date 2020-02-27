@@ -17,7 +17,7 @@
     <ion-list-header>
       <ion-label>Statistiken</ion-label>
     </ion-list-header>
-    <ion-item *ngFor="let statistic of Statistics" [href]="statistic.url" button>
+    <ion-item *ngFor="let statistic of Statistics" (click)="openDetailsWithState(statistic)" button>
       <ion-icon slot="start" color="medium" name="book"></ion-icon>
       <ion-label>{{statistic.title}}</ion-label>
       <ion-badge color="secondary" slot="end">{{statistic.status}}</ion-badge>

@@ -19,7 +19,7 @@ export class FotosPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadFotoSections()
+    this.loadFotoSections();
   }
 
   loadFotoSections() {
@@ -50,7 +50,7 @@ export class FotosPage implements OnInit {
       }
     };
     console.log(documents);
-    this.router.navigate(['foto'], navigationExtras);
+    this.router.navigate(['foto/' + documents.id ], navigationExtras);
   }
 
   // Get employees list

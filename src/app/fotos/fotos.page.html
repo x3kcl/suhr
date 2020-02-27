@@ -17,7 +17,7 @@
     <ion-list-header>
       <ion-label>Fotos</ion-label>
     </ion-list-header>
-    <ion-item *ngFor="let foto of Fotos" [href]="foto.url" button>
+    <ion-item *ngFor="let foto of Fotos" (click)="openDetailsWithState(foto)" button>
       <ion-icon slot="start" color="medium" name="book"></ion-icon>
       <ion-label>{{foto.title}}</ion-label>
       <ion-badge color="secondary" slot="end">{{foto.status}}</ion-badge>

@@ -53,7 +53,7 @@ export class DocumentsPage implements OnInit {
       }
     };
     console.log(documents);
-    this.router.navigate(['document'], navigationExtras);
+    this.router.navigate(['document/' + documents.id ], navigationExtras);
   }
 
   // Get employees list
