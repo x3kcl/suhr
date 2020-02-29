@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Dokumente
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>  
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label>Dateien</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let item of Items" (click)="openDetailsWithState(item)" button>
+      <ion-icon slot="start" color="medium" name="book"></ion-icon>
+      <ion-label>{{item.title}}</ion-label>
+      <ion-badge color="secondary" slot="end">{{item.status}}</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>
