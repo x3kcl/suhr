@@ -30,7 +30,7 @@ export class DocumentPage implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.Document = this.router.getCurrentNavigation().extras.state.documents;
+        this.Document = this.router.getCurrentNavigation().extras.state.item;
         this.myTitle = this.Document.title;
         console.log("Dokument", this.Document);
         //console.log("got id " + this.id);

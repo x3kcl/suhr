@@ -29,7 +29,7 @@ export class FotoPage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         this.Foto = this.router.getCurrentNavigation().extras.state.documents;
         this.myTitle = this.Foto.title;
-        console.log("Foto", this.Foto);
+        //console.log("Foto", this.Foto);
       }
     });
   }

@@ -19,6 +19,22 @@ export class ItemsService {
     })
   };
 
+  getItem(name,id): Observable<Item> {
+    return this.http.get<Item>(this.apiURL + '/_/items/' + name +'?fields=*.*.*&filter[status][in]=published&filter[' + name + '_id][in]=' + id + '')
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  getItems(name): Observable<Item> {
+    return this.http.get<Item>(this.apiURL + '/_/items/' + name +'?filter[status][in]=published')
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
   getDocument(id): Observable<Item> {
     return this.http.get<Item>(this.apiURL + '/_/items/document?fields=*.*.*&filter[status][in]=published&filter[documents_id][in]=' + id + '')
     .pipe(

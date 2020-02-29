@@ -43,14 +43,14 @@ export class FotosPage implements OnInit {
     } )
   }
 
-  openDetailsWithState(documents) {
+  openDetailsWithState(item) {
     let navigationExtras: NavigationExtras = {
       state: {
-        documents: documents
+        item: item
       }
     };
-    console.log(documents);
-    this.router.navigate(['foto/' + documents.id ], navigationExtras);
+    console.log(item);
+    this.router.navigate(['foto/' + item.id ], navigationExtras);
   }
 
   // Get employees list
