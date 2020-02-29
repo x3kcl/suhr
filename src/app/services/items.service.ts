@@ -19,8 +19,11 @@ export class ItemsService {
     })
   };
 
-  getItem(name,id): Observable<Item> {
-    return this.http.get<Item>(this.apiURL + '/_/items/' + name +'?fields=*.*.*&filter[status][in]=published&filter[' + name + '_id][in]=' + id + '')
+  getItem(name, id, idname): Observable<Item> {
+    return this.http.get<Item>(
+      this.apiURL + '/_/items/' +
+      name + '?fields=*.*.*&filter[status][in]=published&filter[' +
+      idname + '_id][in]=' + id + '')
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -28,7 +31,7 @@ export class ItemsService {
   }
 
   getItems(name): Observable<Item> {
-    return this.http.get<Item>(this.apiURL + '/_/items/' + name +'?filter[status][in]=published')
+    return this.http.get<Item>(this.apiURL + '/_/items/' + name + '?fields=*.*&filter[status][in]=published')
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -99,7 +102,7 @@ export class ItemsService {
     );
   }
 
-  // Error handling 
+  // Error handling
   handleError(error) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

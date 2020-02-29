@@ -52,11 +52,11 @@ const routes: Routes = [
     loadChildren: () => import('./links/links.module').then( m => m.LinksPageModule)
   },
   {
-    path: 'item/:name/:subname',
+    path: 'item/:name/:subname/:idname',
     loadChildren: () => import('./item/item.module').then( m => m.ItemPageModule)
   },
   {
-    path: 'items/:name/:id',
+    path: 'items/:name/:id/:idname',
     loadChildren: () => import('./items/items.module').then( m => m.ItemsPageModule)
   },
   { 

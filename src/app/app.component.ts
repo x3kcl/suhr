@@ -18,7 +18,7 @@ export class AppComponent {
     },
     {
       title: 'Dokumente',
-      url: '/documents',
+      url: '/item/documents/document/documents',
       icon: 'book'
     },
     {
