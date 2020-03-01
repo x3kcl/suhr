@@ -59,7 +59,11 @@ const routes: Routes = [
     path: 'items/:name/:id/:idname',
     loadChildren: () => import('./items/items.module').then( m => m.ItemsPageModule)
   },
-  { 
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   }
