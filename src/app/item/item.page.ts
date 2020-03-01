@@ -29,11 +29,12 @@ export class ItemPage implements OnInit {
     console.log('Item got name ' + this.name + ' with sub name ' + this.subname + ' id name ' + this.idname);
   }
   ngOnInit() {
-    this.loadDocumentSections();
+    this.loadItemSections();
   }
 
-  loadDocumentSections() {
+  loadItemSections() {
     return this.items.getItems(this.name).subscribe((data: any ) => {
+      this.Categories = [];
       console.log(data);
       const categoryMap = new Map();
       const items = data.data;
@@ -125,7 +126,7 @@ export class ItemPage implements OnInit {
   }
 
   doRefresh(event: { target: { complete: () => void; }; }) {
-    this.loadDocumentSections();
+    this.loadItemSections();
     event.target.complete();
   }
 }

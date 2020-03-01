@@ -43,6 +43,7 @@ export class ItemsPage implements OnInit {
 
   loadItems() {
     return this.items.getItem(this.name, this.id, this.idname).subscribe((data: any) => {
+      this.Items = [];
       console.log(data);
       const items = data.data;
       const result = [];
