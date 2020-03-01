@@ -14,8 +14,8 @@ export class ItemsPage implements OnInit {
   name: string;
   id: string;
   idname: string;
-  title: string;
-  subtitle: string;
+  title = 'Kein Titel';
+  subtitle = 'Kein Untertitel';
 
   constructor(
     private route: ActivatedRoute,
@@ -31,7 +31,8 @@ export class ItemsPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.Item = this.router.getCurrentNavigation().extras.state.item;
-        console.log('Items' + this.Item);
+        console.log('Items', this.Item);
+        this.title = this.Item.title;
       }
     });
   }
