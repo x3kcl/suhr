@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ItemsService } from '../services/items.service';
+import { Category, Subtitle, Item } from '../classes/item';
 
 @Component({
   selector: 'app-item',
   templateUrl: './item.page.html',
   styleUrls: ['./item.page.scss'],
 })
+
 export class ItemPage implements OnInit {
   Items: any = [];
   name: string;
@@ -14,6 +16,7 @@ export class ItemPage implements OnInit {
   title: string;
   subtitle: string;
   idname: string;
+  Categories: any = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -32,24 +35,66 @@ export class ItemPage implements OnInit {
   loadDocumentSections() {
     return this.items.getItems(this.name).subscribe((data: any ) => {
       console.log(data);
+      let categoryMap = new Map();
       const items = data.data;
       const result = [];
       for ( const item of items ) {
         const url = 'items/' + this.subname + '/' + item.id + '/' + this.idname;
-        const tmp = {
-          id: item.id,
-          status: item.status,
-          owner: item.owner,
-          created_on: item.created_on,
-          title: item.title,
-          url
+        console.log('for', item);
+        console.log(item.category_id);
+        const tmp : Item = {
+          id: item.subtitle_id.id,
+          status: item.subtitle_id.status,
+          owner: item.subtitle_id.owner,
+          created_on: item.subtitle_id.created_on,
+          title: item.subtitle_id.title,
+          url: url
         };
         if (item.title_id.title) {
           this.title = item.title_id.title;
           this.subtitle = item.title_id.subtitle;
         }
+        if ( categoryMap.has(item.category_id.title) ) {
+          let subMap = categoryMap.get(item.category_id.title);
+          if ( subMap.has(item.subtitle_id.title) ) {
+            let itemMap = subMap.get(item.subtitle_id.title);
+            itemMap.set(item.subtitle_id.title, tmp);
+          } else {
+            let itemMap = new Map();
+            itemMap.set(item.subtitle_id.title, tmp);
+            subMap.set(item.subtitle_id.title, itemMap);
+          }          
+        } else {
+          let subMap = new Map();
+          let itemMap = new Map();
+          itemMap.set(item.subtitle_id.title, tmp);
+          subMap.set(item.subtitle_id.title, itemMap);
+          categoryMap.set(item.category_id.title,subMap);
+        }
         result[result.length] = tmp;
       }
+      
+      categoryMap.forEach((value: boolean, key: string) => {
+        let category: Category = { title: key };
+        let subMap = categoryMap.get(key);
+        console.log('submap', subMap);      
+        subMap.forEach((value: boolean, key: string) => {
+          console.log('key', key);
+          let itemArray = subMap.get(key);
+          console.log('itemArray', itemArray);
+          let nav = itemArray.get(key);
+          let subtitle: Subtitle = { title: key, item: nav };
+          if (category.subtitleList) {
+            category.subtitleList.push(subtitle);
+          } else {
+            category.subtitleList = [subtitle];
+          }
+        });     
+        this.Categories[this.Categories.length] = category;   
+        console.log(key, value);
+      });
+      console.log(categoryMap);
+      console.log(this.Categories);
       this.Items = result;
     } );
   }
