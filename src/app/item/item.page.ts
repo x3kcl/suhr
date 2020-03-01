@@ -39,8 +39,14 @@ export class ItemPage implements OnInit {
       const items = data.data;
       const result = [];
       for ( const item of items ) {
-        const url = 'items/' + this.subname + '/' + item.id + '/' + this.idname;
-        console.log('for', item);
+        let url = '';
+        console.log('title', item.title_id.redirect_id.title);
+        if ( item.title_id.redirect_id.title === 'items' ) {
+          url = 'items/' + this.subname + '/' + item.id + '/' + this.idname;
+        } else if (item.title_id.redirect_id.title === 'foto') {
+          url = 'foto/' + + item.id;
+        }
+        console.log('for', item, url);
         console.log(item.category_id);
         const tmp: Item = {
           id: item.subtitle_id.id,
@@ -48,7 +54,8 @@ export class ItemPage implements OnInit {
           owner: item.subtitle_id.owner,
           created_on: item.subtitle_id.created_on,
           title: item.subtitle_id.title,
-          url
+          url,
+          redirectMode: item.title_id.redirect_id.title
         };
         if (item.title_id.title) {
           this.title = item.title_id.title;

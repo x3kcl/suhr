@@ -23,7 +23,7 @@ export class AppComponent {
     },
     {
       title: 'Fotos',
-      url: '/fotos',
+      url: '/item/fotos/foto/fotos',
       icon: 'images'
     },
     {
@@ -33,7 +33,7 @@ export class AppComponent {
     },
     {
       title: 'Statistiken',
-      url: '/statistics',
+      url: '/item/statistics/statistic/statistics',
       icon: 'stats-chart-outline'
     },
     {

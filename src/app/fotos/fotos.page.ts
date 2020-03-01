@@ -13,7 +13,7 @@ export class FotosPage implements OnInit {
   Fotos: any = [];
 
   constructor(
-    public restApi: FileService, 
+    public restApi: FileService,
     public documents: ItemsService,
     private router: Router,
   ) {}
@@ -25,28 +25,28 @@ export class FotosPage implements OnInit {
   loadFotoSections() {
     return this.documents.getFotos().subscribe((data: any ) => {
       console.log(data);
-      let items = data['data'];
-      let result = [];
-      for ( let item of items ) {
-        let url = '/foto/' + item.id;
-        let tmp = {
+      const items = data.data;
+      const result = [];
+      for ( const item of items ) {
+        const url = '/foto/' + item.id;
+        const tmp = {
           id: item.id,
           status: item.status,
           owner: item.owner,
           created_on: item.created_on,
           title: item.title,
-          url: url
+          url
         };
         result[result.length] = tmp;
-      }    
+      }
       this.Fotos = result;
-    } )
+    } );
   }
 
   openDetailsWithState(item) {
-    let navigationExtras: NavigationExtras = {
+    const navigationExtras: NavigationExtras = {
       state: {
-        item: item
+        item
       }
     };
     console.log(item);
@@ -56,27 +56,27 @@ export class FotosPage implements OnInit {
   // Get employees list
   loadFiles() {
     return this.restApi.getFiles().subscribe((data: any ) => {
-      let items = data['data'];
-      let result = [];
-      for ( let item of items ) {
-        let thumbnails = item.data.thumbnails;
-        let url = "";
-        for (let thumbnail of thumbnails ) {
-          if ( thumbnail.dimension === "200x200") {
+      const items = data.data;
+      const result = [];
+      for ( const item of items ) {
+        const thumbnails = item.data.thumbnails;
+        let url = '';
+        for (const thumbnail of thumbnails ) {
+          if ( thumbnail.dimension === '200x200') {
             url = thumbnail.url;
           }
         }
-        let tmp = {
+        const tmp = {
           title: item.title,
           type: item.type,
-          url: url,
+          url,
           description: item.description
         };
         result[result.length] = tmp;
-      }    
+      }
       this.File = result;
-      //console.log(this.File);      
-    })
+      // console.log(this.File);
+    });
   }
 
   doRefresh(event) {

@@ -27,7 +27,7 @@ export class FotoPage implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.Foto = this.router.getCurrentNavigation().extras.state.documents;
+        this.Foto = this.router.getCurrentNavigation().extras.state.item;
         this.myTitle = this.Foto.title;
         //console.log("Foto", this.Foto);
       }

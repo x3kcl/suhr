@@ -13,13 +13,15 @@ export interface Item {
     created_on: string;
     title: string;
     url: string;
+    redirectMode?: string;
 }
 
 export interface Category {
     id?: string;
     title?: string;
     subtitle?: string;
-    subtitleList?: [Subtitle]
+    subtitleList?: [Subtitle];
+    redirectMode?: string;
 }
   
 export interface Subtitle {
@@ -28,5 +30,5 @@ export interface Subtitle {
     subtitle?: string;
     url?: string;
     item?: Item;
-    itemList?: [Item]    
+    itemList?: [Item];    
 }

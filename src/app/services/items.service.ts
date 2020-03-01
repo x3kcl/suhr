@@ -31,7 +31,7 @@ export class ItemsService {
   }
 
   getItems(name): Observable<Item> {
-    return this.http.get<Item>(this.apiURL + '/_/items/' + name + '?fields=*.*&filter[status][in]=published')
+    return this.http.get<Item>(this.apiURL + '/_/items/' + name + '?fields=*.*.*&filter[status][in]=published')
     .pipe(
       retry(1),
       catchError(this.handleError)
