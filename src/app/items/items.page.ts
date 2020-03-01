@@ -32,7 +32,7 @@ export class ItemsPage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         this.Item = this.router.getCurrentNavigation().extras.state.item;
         console.log('Items', this.Item);
-        this.title = this.Item.title;
+        this.subtitle = this.Item.title;
       }
     });
   }
@@ -53,15 +53,17 @@ export class ItemsPage implements OnInit {
           status: item.status,
           owner: item.owner.id,
           created_on: item.created_on,
-          documents_id: item.documents_id.id,
+          documents_id: item[ this.idname + '_id'].id,
           url: item.file.data.full_url,
           title: item.file.title,
           size: prettyBytes(item.file.filesize),
           filename_download: item.file.data.filename_download
         };
-        if (item.title_id.title) {
-          this.title = item.title_id.title;
-          this.subtitle = item.title_id.subtitle;
+        if (item[ this.idname + '_id'].title) {
+          const info = item[ this.idname + '_id'];
+          console.log('title_id', info);
+          this.title = info.title;
+          this.subtitle = info.subtitle_id.title;
         }
         // console.log("size", item.file.filesize);
         result[result.length] = tmp;

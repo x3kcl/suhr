@@ -28,7 +28,7 @@ export class AppComponent {
     },
     {
       title: 'Presse',
-      url: '/picked',
+      url: '/item/articles/article/articles',
       icon: 'repeat'
     },
     {
