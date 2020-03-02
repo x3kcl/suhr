@@ -45,12 +45,13 @@ export class AppComponent {
       title: 'Kontakt',
       url: '/contact',
       icon: 'mail-outline'
-    },
+    }/*,
     {
       title: 'Login',
       url: '/login',
+      //url: 'https://cloud.naumann.hosting',
       icon: 'mail-outline'
-    }
+    }*/
   ];
 
   constructor(

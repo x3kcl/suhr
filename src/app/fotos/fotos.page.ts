@@ -28,6 +28,7 @@ export class FotosPage implements OnInit {
       const items = data.data;
       const result = [];
       for ( const item of items ) {
+        console.log('foto', item);
         const url = '/foto/' + item.id;
         const tmp = {
           id: item.id,
