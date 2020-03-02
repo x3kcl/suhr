@@ -15,8 +15,8 @@
       <ion-label>Fotos</ion-label>
     </ion-list-header>
     <ion-item *ngFor="let foto of Fotos" [href]="foto.full_url" download>
-      <ion-thumbnail slot="start" class="fotos-class">
-        <ion-img [src]="foto.url" class="ion-thumbnail"></ion-img>
+      <ion-thumbnail slot="start">
+        <ion-img [src]="foto.url"></ion-img>
       </ion-thumbnail>
       <ion-label>
         <ion-text color="primary">
