@@ -1,8 +1,7 @@
 .item ion-thumbnail {
-    min-width: 300px;    
-    min-height: 300px;
-    img {
-        max-width: 300px;    
-        min-width: 300px;
-    }
+  width: auto; 
+  height: auto;
+  img {
+    width: auto !important;
+  }
 }

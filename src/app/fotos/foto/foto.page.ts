@@ -51,7 +51,7 @@ export class FotoPage implements OnInit {
           owner: item.owner.id,
           created_on: item.created_on,
           fotos_id: item.fotos_id.id,
-          url: item.file.data.thumbnails[2].url,
+          url: item.file.data.thumbnails[3].url,
           full_url: item.file.data.full_url,
           title: item.title ? item.title : item.file.title,
           description: item.title ? item.title : item.file.description,
