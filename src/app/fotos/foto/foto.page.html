@@ -9,23 +9,44 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
-  <ion-list lines="none">
-    <ion-list-header>
-      <ion-label>Fotos</ion-label>
-    </ion-list-header>
-    <ion-item *ngFor="let foto of Fotos" [href]="foto.full_url" download>
-      <ion-thumbnail slot="start">
-        <ion-img [src]="foto.url"></ion-img>
-      </ion-thumbnail>
-      <ion-label>
-        <ion-text color="primary">
-          <h3>{{foto.title}}</h3>
-        </ion-text>
-        <ion-text color="secondary">
-          <p [innerHTML]="foto.description"></p>
-        </ion-text>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-item-divider style="width: 100%;" item-content>
+            <h4>Fotos</h4>
+          </ion-item-divider>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="3" *ngFor="let foto of Fotos">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item [href]="foto.full_url" lines="none">
+                <img [src]="foto.url" />
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-label>
+                  <ion-text color="primary">
+                    <h3>{{foto.title}}</h3>
+                  </ion-text>
+                  <ion-text color="secondary">
+                    <p [innerHTML]="foto.description"></p>
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
