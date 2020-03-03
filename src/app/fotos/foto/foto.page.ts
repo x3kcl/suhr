@@ -53,8 +53,8 @@ export class FotoPage implements OnInit {
           fotos_id: item.fotos_id.id,
           url: item.file.data.thumbnails[3].url,
           full_url: item.file.data.full_url,
-          title: item.title ? item.title : item.file.title,
-          description: item.title ? item.title : item.file.description,
+          title: item.file.title,
+          description: item.file.description,
           size: prettyBytes(item.file.filesize)
         };
         console.log('item', item, tmp);
