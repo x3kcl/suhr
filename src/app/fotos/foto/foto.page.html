@@ -22,27 +22,19 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let foto of Fotos">
+      <ion-col sizeLg="4" sizeMd="6" sizeXs="12" *ngFor="let foto of Fotos">
         <ion-grid>
           <ion-row>
-            <ion-col size="12">
+            <ion-col>
               <ion-item [href]="foto.full_url" lines="none">
                 <img [src]="foto.url" />
               </ion-item>
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col size="12">
-              <ion-item lines="none">
-                <ion-label>
-                  <ion-text color="primary">
-                    <h3>{{foto.title}}</h3>
-                  </ion-text>
-                  <ion-text color="secondary">
-                    <p [innerHTML]="foto.description"></p>
-                  </ion-text>
-                </ion-label>
-              </ion-item>
+            <ion-col>
+              <ion-text>{{foto.title}}</ion-text>
+              <p [innerHTML]="foto.description"></p>    
             </ion-col>
           </ion-row>
         </ion-grid>
