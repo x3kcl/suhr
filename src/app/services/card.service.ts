@@ -20,7 +20,7 @@ export class CardService {
   };
   // HttpClient API get() method => Fetch employees list
   getCards(): Observable<Card> {
-    return this.http.get<Card>(this.apiURL + '/_/items/home')
+    return this.http.get<Card>(this.apiURL + '/_/items/home?fields=*.*.*&filter[status][in]=published')
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -28,7 +28,7 @@ export class CardService {
   }
 
   getContacts(): Observable<Card> {
-    return this.http.get<Card>(this.apiURL + '/_/items/contacts')
+    return this.http.get<Card>(this.apiURL + '/_/items/contacts?filter[status][in]=published')
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -36,7 +36,7 @@ export class CardService {
   }
 
   getLinks(): Observable<Card> {
-    return this.http.get<Card>(this.apiURL + '/_/items/links')
+    return this.http.get<Card>(this.apiURL + '/_/items/links?filter[status][in]=published')
     .pipe(
       retry(1),
       catchError(this.handleError)

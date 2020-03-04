@@ -25,7 +25,7 @@ export class HomePage {
   loadCards() {
     return this.restApi.getCards().subscribe((data: {}) => {
       //let items = data.
-      //console.log(data['data'][0]);
+      console.log(data['data'][0]);
       this.Card = data['data'];
       //console.log(this.Card);
     })

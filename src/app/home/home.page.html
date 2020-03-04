@@ -13,20 +13,55 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>  
+
   <ion-grid>
     <ion-row>
       <ion-col><img src="/assets/pictures/home/suhr.jpg" alt=""/></ion-col>
       <ion-col><img src="/assets/pictures/home/logo_smal.png" alt="" class="suhr_smal"/></ion-col>
     </ion-row>
   </ion-grid>
-  
-  <ion-card *ngFor="let card of Card">
-    <ion-card-header>
-      <ion-card-title>{{ card.title }}</ion-card-title>
-      <ion-card-subtitle>{{ card.subtitle }}</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <p [innerHTML]="card.text"></p>
-    </ion-card-content>
-  </ion-card>
+  <ion-grid *ngFor="let card of Card">
+    <ion-row>
+      <ion-col>
+        <ion-card >
+          <ion-card-header>
+            <ion-card-title>{{ card.title }}</ion-card-title>
+            <ion-card-subtitle>{{ card.subtitle }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p [innerHTML]="card.text"></p>
+          </ion-card-content>    
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle></ion-card-subtitle>
+            <ion-card-title>{{card.von.title}}</ion-card-title>
+          </ion-card-header>
+          <ion-item [href]="card.von.data.full_url" lines="none">
+            <img [src]="card.von.data.thumbnails[3].url" />
+          </ion-item>
+          <ion-card-content [innerHTML]="card.von.description">
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle></ion-card-subtitle>
+            <ion-card-title>{{card.zu.title}}</ion-card-title>
+          </ion-card-header>
+          <ion-item [href]="card.zu.data.full_url" lines="none">
+            <img [src]="card.zu.data.thumbnails[3].url" />
+          </ion-item>
+          <ion-card-content [innerHTML]="card.zu.description">
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
