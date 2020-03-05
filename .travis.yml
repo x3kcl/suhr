@@ -11,8 +11,10 @@ before_script:
   - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
   - nvm install --lts
   - npm install -g @ionic/cli
+  - cd /home/travis
   - git clone https://github.com/x3kcl/suhr.git
 
 install:
-  - cd suhr
+  - la -ls
+  - cd /home/travis/suhr
   - ionic build --prod
