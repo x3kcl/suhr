@@ -11,5 +11,5 @@ addons:
     update: true
 
 install:
-  - ionic build --prod --engine=browser --watch=false --browsers=ChromeHeadless
+  - ionic build --prod --engine=browser --watch=false --browsers=ChromeHeadless --release
   - tar cjvf www.tar.bz www
