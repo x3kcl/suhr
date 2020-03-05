@@ -10,6 +10,10 @@ addons:
   apt:
     update: true
 
-install:
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
+script:
   - ionic build --prod --engine=browser --watch=false --browsers=ChromeHeadless --release
   - tar cjvf www.tar.bz www
