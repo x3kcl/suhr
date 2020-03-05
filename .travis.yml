@@ -1,10 +1,15 @@
 language: node_js
 
 before_install:
+  - sudo apt-get -y install chromium-browser
   - nvm install --lts
   - npm install -g @ionic/cli
   - git clone https://github.com/x3kcl/suhr.git
   - npm install
+addons:
+  apt:
+    update: true
 
 install:
   - ionic build --prod
+  - tar cjvf www.tar.bz www
