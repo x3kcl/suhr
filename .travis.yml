@@ -15,7 +15,7 @@ before_script:
   - cd /home/travis/suhr
   - git clone https://github.com/x3kcl/suhr.git
 
-install:
+script:
   - ls -la
   - cd /home/travis/suhr
   - ionic build --prod
