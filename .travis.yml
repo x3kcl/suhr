@@ -17,10 +17,6 @@ before_script:
 script:
 - ionic build --prod --engine=browser --watch=false --release
 - tar cjvf www.tar.bz www
-before_deploy:
-- eval "$(ssh-agent -s)"
-- chmod 600 /tmp/deploy_rsa
-- ssh-add /tmp/deploy_rsa
 
 deploy:
   provider: script
