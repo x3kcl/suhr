@@ -1,8 +1,8 @@
 language: node_js
 before_install:
 - openssl aes-256-cbc -K $encrypted_edc15e6e3ccc_key -iv $encrypted_edc15e6e3ccc_iv
-  -in deploy_rsa.enc -out deploy_rsa -d
-- ssh-add deploy_key
+  -in deploy_rsa.enc -out ./deploy_rsa -d
+- ssh-add ./deploy_key
 - ssh -i deploy_key root@naumann.hosting pwd
 - sudo apt-get -y install chromium-browser ttf-freefont firefox
 - nvm install --lts
