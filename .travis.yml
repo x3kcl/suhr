@@ -9,6 +9,7 @@ before_install:
 addons:
   apt:
     update: true
+  ssh_known_hosts: naumann.hosting
 before_script:
 - 
 - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost
@@ -16,3 +17,14 @@ before_script:
 script:
 - ionic build --prod --engine=browser --watch=false --release
 - tar cjvf www.tar.bz www
+before_deploy:
+- eval "$(ssh-agent -s)"
+- chmod 600 /tmp/deploy_rsa
+- ssh-add /tmp/deploy_rsa
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/www root@naumann.hosting:/root/www
+  on:
+    branch: master
