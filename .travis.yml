@@ -24,8 +24,33 @@ script:
 - tar cjvf www.tar.bz www
 
 deploy:
-  provider: script
-  skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/www root@naumann.hosting:/root/
-  on:
-    branch: master
+  - provider: script
+    skip_cleanup: true
+    script: scp $TRAVIS_BUILD_DIR/www.tar.bz root@naumann.hosting:/root/
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script: ssh -i deploy_rsa root@naumann.hosting tar xjvf /root/www.tar.bz
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script: ssh -i deploy_rsa root@naumann.hosting mv /root/www /home/cloud/docker/
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script: ssh -i deploy_rsa root@naumann.hosting mv /home/cloud/docker/suhr/.htaccess /home/cloud/docker/www/
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script: ssh -i deploy_rsa root@naumann.hosting rm -rf /home/cloud/docker/suhr
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script: ssh -i deploy_rsa root@naumann.hosting mv /home/cloud/docker/www /home/cloud/docker/suhr
+    on:
+      branch: master
