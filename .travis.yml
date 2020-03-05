@@ -1,21 +1,10 @@
 language: node_js
 
 before_install:
-  - sudo apt-get -y install build-essential git
-addons:
-  apt:
-    update: true
-
-before_script:
-  - cd
   - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
-  - nvm install --lts
   - npm install -g @ionic/cli
-  - mkdir /home/travis/suhr
-  - cd /home/travis/suhr
   - git clone https://github.com/x3kcl/suhr.git
+  - npm install
 
-script:
-  - ls -la
-  - cd /home/travis/suhr
+install:
   - ionic build --prod
