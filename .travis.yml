@@ -26,6 +26,6 @@ script:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/www root@naumann.hosting:/root/www
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/www root@naumann.hosting:/root/
   on:
     branch: master
