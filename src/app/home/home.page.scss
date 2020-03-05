@@ -1,8 +1,15 @@
-.welcome-card img {
-  max-height: 35vh;
-  overflow: hidden;
+.suhr_smal {
+  max-height: 5rem;  
 }
 
-.suhr_smal {
-  max-height: 4rem;  
+ion-card-title {
+  font-size: 25px;
+}
+
+ion-card-subtitle {
+  font-size: 18px;
+}
+
+ion-card-content {
+  font-size: 12px;
 }
