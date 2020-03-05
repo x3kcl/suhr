@@ -1,8 +1,12 @@
 language: node_js
+
 before_install:
 - sudo apt-get -y install openssh-client ttf-freefont
 - openssl aes-256-cbc -K $encrypted_edc15e6e3ccc_key -iv $encrypted_edc15e6e3ccc_iv
   -in deploy_rsa.enc -out ./deploy_rsa -d
+- eval "$(ssh-agent -s)"
+- chmod 600 ./deploy_key
+- echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 - ssh -i deploy_key root@naumann.hosting pwd
 - nvm install --lts
@@ -13,7 +17,6 @@ addons:
     update: true
   ssh_known_hosts: naumann.hosting
 before_script:
-- 
 - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost
   &
 script:
