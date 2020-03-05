@@ -4,12 +4,12 @@ before_install:
 - sudo apt-get -y install openssh-client
 - git clone https://github.com/x3kcl/suhr.git
 - openssl aes-256-cbc -K $encrypted_77965d5bdd4d_key -iv $encrypted_77965d5bdd4d_iv
-  -in deploy_key.enc -out ./deploy_key -d
+  -in deploy_key.enc -out $TRAVIS_BUILD_DIR/deploy_key -d
 - eval "$(ssh-agent -s)"
-- chmod 600 ./deploy_key
+- chmod 600 $TRAVIS_BUILD_DIR/deploy_key
 - echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-- ssh-add ./deploy_key
-- ssh -i deploy_key root@naumann.hosting pwd
+- ssh-add $TRAVIS_BUILD_DIR/deploy_key
+- ssh -i $TRAVIS_BUILD_DIR/deploy_key root@naumann.hosting pwd
 - nvm install --lts
 - npm install -g @ionic/cli
 addons:
