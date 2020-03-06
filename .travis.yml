@@ -32,7 +32,7 @@ deploy:
       branch: master
   - provider: script
     skip_cleanup: true
-    script: 'ssh -i deploy_rsa root@naumann.hosting && \n
+    script: 'ssh -i deploy_rsa root@naumann.hosting \n
     tar xjvf /root/www.tar.bz && \n
     mv /root/www /home/cloud/docker/ && \n
     rm -rf /home/cloud/docker/suhr && \n
