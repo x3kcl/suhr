@@ -39,7 +39,7 @@ deploy:
               ssh -i deploy_rsa root@naumann.hosting rm /root/www.tar.bz &&
               ssh -i deploy_rsa root@naumann.hosting mv /home/cloud/docker/www /home/cloud/docker/suhr &&
               ssh -i deploy_rsa root@naumann.hosting chown cloud.cloud -R /home/cloud/docker/suhr &&
-              ssh -i deploy_rsa root@naumann.hosting su -c 'docker-compose -f /home/cloud/docker/docker-compose.yml stop' cloud &&
-              ssh -i deploy_rsa root@naumann.hosting su -c 'docker-compose -f /home/cloud/docker/docker-compose.yml up -d' cloud
+              ssh -i deploy_rsa root@naumann.hosting su -c "docker-compose -f /home/cloud/docker/docker-compose.yml stop" cloud &&
+              ssh -i deploy_rsa root@naumann.hosting su -c "docker-compose -f /home/cloud/docker/docker-compose.yml up -d" cloud
     on:
       branch: master
