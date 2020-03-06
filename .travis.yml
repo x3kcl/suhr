@@ -33,15 +33,13 @@ deploy:
   - provider: script
     skip_cleanup: true
     script: ssh -i deploy_rsa root@naumann.hosting tar xjvf /root/www.tar.bz && 
-              whoami &&
-              chown cloud.cloud -R /root/www &&
-              mv /root/www /home/cloud/docker/ &&
-              rm -rf /home/cloud/docker/suhr &&
-              rm /root/www.tar.bz &&
-              mv /home/cloud/docker/www /home/cloud/docker/suhr &&
-              chown cloud.cloud -R /home/cloud/docker/suhr &&
-              su - cloud && cd /home/cloud/docker &&
-              docker-compose stop &&
-              docker-compose up -d
+              ssh -i deploy_rsa root@naumann.hosting chown cloud.cloud -R /root/www &&
+              ssh -i deploy_rsa root@naumann.hosting mv /root/www /home/cloud/docker/ &&
+              ssh -i deploy_rsa root@naumann.hosting rm -rf /home/cloud/docker/suhr &&
+              ssh -i deploy_rsa root@naumann.hosting rm /root/www.tar.bz &&
+              ssh -i deploy_rsa root@naumann.hosting mv /home/cloud/docker/www /home/cloud/docker/suhr &&
+              ssh -i deploy_rsa root@naumann.hosting chown cloud.cloud -R /home/cloud/docker/suhr &&
+              ssh -i deploy_rsa root@naumann.hosting su -c 'docker-compose -f /home/cloud/docker/docker-compose.yml stop' cloud &&
+              ssh -i deploy_rsa root@naumann.hosting su -c 'docker-compose -f /home/cloud/docker/docker-compose.yml up -d' cloud
     on:
       branch: master
