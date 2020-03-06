@@ -1,6 +1,5 @@
 #!/bin/bash
 echo "Deployment START"
-tar xjvf /root/www.tar.bz
 chown cloud.cloud -R /root/www
 mv /root/www /home/cloud/docker/
 rm -rf /home/cloud/docker/suhr
