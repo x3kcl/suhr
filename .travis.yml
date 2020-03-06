@@ -22,6 +22,7 @@ before_script:
 script:
 - ionic build --prod --engine=browser --watch=false --release
 - cp .htaccess www/
+- cp install.sh www/
 - tar cjvf www.tar.bz www
 
 deploy:
