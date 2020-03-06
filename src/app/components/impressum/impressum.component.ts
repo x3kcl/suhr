@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-impressum',
@@ -8,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 export class ImpressumComponent implements OnInit {
   text: string;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {}
 
