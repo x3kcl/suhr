@@ -33,6 +33,8 @@ deploy:
   - provider: script
     skip_cleanup: true
     script: ssh -i deploy_rsa root@naumann.hosting tar xjvf /root/www.tar.bz && 
+              whoami &&
+              chown cloud.cloud -R /root/www &&
               mv /root/www /home/cloud/docker/ &&
               rm -rf /home/cloud/docker/suhr &&
               rm /root/www.tar.bz &&
