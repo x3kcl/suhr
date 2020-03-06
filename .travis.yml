@@ -32,14 +32,9 @@ deploy:
       branch: master
   - provider: script
     skip_cleanup: true
-    script: ssh -i deploy_rsa root@naumann.hosting tar xjvf /root/www.tar.bz && 
-              ssh -i deploy_rsa root@naumann.hosting chown cloud.cloud -R /root/www &&
-              ssh -i deploy_rsa root@naumann.hosting mv /root/www /home/cloud/docker/ &&
-              ssh -i deploy_rsa root@naumann.hosting rm -rf /home/cloud/docker/suhr &&
-              ssh -i deploy_rsa root@naumann.hosting rm /root/www.tar.bz &&
-              ssh -i deploy_rsa root@naumann.hosting mv /home/cloud/docker/www /home/cloud/docker/suhr &&
-              ssh -i deploy_rsa root@naumann.hosting chown cloud.cloud -R /home/cloud/docker/suhr &&
-              ssh -i deploy_rsa root@naumann.hosting su -c "docker-compose -f /home/cloud/docker/docker-compose.yml stop" cloud &&
-              ssh -i deploy_rsa root@naumann.hosting su -c "docker-compose -f /home/cloud/docker/docker-compose.yml up -d" cloud
+    script: ssh -i deploy_rsa root@naumann.hosting tar xjvf /root/www.tar.bz &&
+              ssh -i deploy_rsa root@naumann.hosting mv /root/www/install.sh /root/ &&
+              ssh -i deploy_rsa root@naumann.hosting chmot +x /root/www/install.sh &&
+              ssh -i deploy_rsa root@naumann.hosting ./root/www/install.sh
     on:
       branch: master
