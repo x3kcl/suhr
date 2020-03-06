@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-impressum',
@@ -10,9 +10,22 @@ export class ImpressumComponent implements OnInit {
   text: string;
 
   constructor(
-    private router: Router
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {}
+
+  openDetailsWithState( name: string) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        item: {
+          name
+        }
+      }
+    };
+    console.log(name);
+    this.router.navigate([ '/' + name ], navigationExtras);
+  }
 
 }
