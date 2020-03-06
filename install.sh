@@ -15,6 +15,8 @@ mv /home/cloud/docker/www /home/cloud/docker/suhr
 echo "adjust rights"
 chown cloud.cloud -R /home/cloud/docker/suhr
 echo "Start docker"
-#su -c "docker-compose -f /home/cloud/docker/docker-compose.yml up -d" cloud
+su -c "docker-compose -f /home/cloud/docker/docker-compose.yml up -d" cloud &
+BACK_PID=$!
+wait $BACK_PID
 rm /root/www.tar.bz
 echo "Deployment END"
