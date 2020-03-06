@@ -54,3 +54,8 @@ deploy:
     script: ssh -i deploy_rsa root@naumann.hosting mv /home/cloud/docker/www /home/cloud/docker/suhr
     on:
       branch: master
+  - provider: script
+    skip_cleanup: true
+    script: ssh -i deploy_rsa root@naumann.hosting su - cloud && cd /home/cloud/docker && docker-compose stop && docker-compose up -d
+    on:
+      branch: master
