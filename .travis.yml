@@ -34,7 +34,7 @@ deploy:
     skip_cleanup: true
     script: ssh -i deploy_rsa root@naumann.hosting tar xjvf /root/www.tar.bz &&
               ssh -i deploy_rsa root@naumann.hosting mv /root/www/install.sh /root/ &&
-              ssh -i deploy_rsa root@naumann.hosting chmot +x /root/www/install.sh &&
-              ssh -i deploy_rsa root@naumann.hosting ./root/www/install.sh
+              ssh -i deploy_rsa root@naumann.hosting chmod +x /root/install.sh &&
+              ssh -i deploy_rsa root@naumann.hosting ./root/install.sh
     on:
       branch: master
