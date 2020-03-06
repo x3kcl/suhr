@@ -13,7 +13,7 @@ export class FotoPage implements OnInit {
   File: any;
   Fotos: any = [];
   Foto: any;
-  myTitle: string = '';
+  myTitle = '';
   id: string;
 
   constructor(
@@ -23,13 +23,13 @@ export class FotoPage implements OnInit {
     public restApi: FileService,
   ) {
     this.id = this.route.snapshot.params.id;
-    console.log("got id " + this.id);
+    console.log('got id ' + this.id);
 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.Foto = this.router.getCurrentNavigation().extras.state.item;
         this.myTitle = this.Foto.title;
-        //console.log("Foto", this.Foto);
+        // console.log("Foto", this.Foto);
       }
     });
   }
@@ -40,12 +40,12 @@ export class FotoPage implements OnInit {
 
   loadFoto() {
     return this.document.getFoto(this.id).subscribe((data: any) => {
-      //console.log(data);
-      let items = data['data'];
-      let result = [];
-      let url = "";
-      for (let item of items) {
-        let tmp = {
+      // console.log(data);
+      const items = data.data;
+      const result = [];
+      const url = '';
+      for (const item of items) {
+        const tmp = {
           id: item.id,
           status: item.status,
           owner: item.owner.id,
@@ -61,6 +61,6 @@ export class FotoPage implements OnInit {
         result[result.length] = tmp;
       }
       this.Fotos = result;
-    })
+    });
   }
 }
