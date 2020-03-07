@@ -27,6 +27,14 @@ export class CardService {
     );
   }
 
+  getImpressum(): Observable<Card> {
+    return this.http.get<Card>(this.apiURL + '/_/items/impressum?fields=*.*.*&filter[status][in]=published')
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
   getContacts(): Observable<Card> {
     return this.http.get<Card>(this.apiURL + '/_/items/contacts?filter[status][in]=published')
     .pipe(
@@ -43,10 +51,10 @@ export class CardService {
     );
   }
 
-  // Error handling 
-  handleError(error) {
+  // Error handling
+  handleError(error: { error: { message: string; }; status: any; message: any; }) {
     let errorMessage = '';
-    if(error.error instanceof ErrorEvent) {
+    if (error.error instanceof ErrorEvent) {
       // Get client-side error
       errorMessage = error.error.message;
     } else {

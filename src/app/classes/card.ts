@@ -6,4 +6,5 @@ export class Card {
     text: string;
     subtitle: string;
     title: string;
+  data: any;
 }
