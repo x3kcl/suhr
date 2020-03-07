@@ -51,10 +51,10 @@ export class CardService {
     );
   }
 
-  // Error handling 
-  handleError(error) {
+  // Error handling
+  handleError(error: { error: { message: string; }; status: any; message: any; }) {
     let errorMessage = '';
-    if(error.error instanceof ErrorEvent) {
+    if (error.error instanceof ErrorEvent) {
       // Get client-side error
       errorMessage = error.error.message;
     } else {

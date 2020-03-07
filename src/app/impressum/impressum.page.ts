@@ -12,9 +12,9 @@ export class ImpressumPage implements OnInit {
   title: string;
 
   constructor(
-    public restApi: CardService, 
+    public restApi: CardService,
     private menu: MenuController,
-  ) { 
+  ) {
     this.title = 'Impressum';
   }
 
@@ -23,9 +23,9 @@ export class ImpressumPage implements OnInit {
   }
 
   loadImpressum() {
-    return this.restApi.getImpressum().subscribe((data: {}) => {
-      console.log(data['data'][0]);
-      this.Card = data['data'];
+    return this.restApi.getImpressum().subscribe((data) => {
+      console.log(data.data[0]);
+      this.Card = data.data;
     });
   }
 
