@@ -4,8 +4,6 @@ import { ImpressumComponent } from './impressum/impressum.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 
-
-
 @NgModule({
   declarations: [
     ImpressumComponent
