@@ -23,12 +23,12 @@ export interface Category {
     subtitleList?: [Subtitle];
     redirectMode?: string;
 }
-  
+
 export interface Subtitle {
     id?: string;
     title?: string;
     subtitle?: string;
     url?: string;
     item?: Item;
-    itemList?: [Item];    
+    itemList?: [Item];
 }
