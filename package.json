@@ -57,7 +57,7 @@
     "protractor": "~5.4.0",
     "ts-node": "^8.7.0",
     "tslint": "^5.20.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.6.4"
   },
   "description": "Suhr e suberi Sach",
   "browserslist": [
