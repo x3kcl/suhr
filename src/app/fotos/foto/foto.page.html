@@ -25,7 +25,7 @@
       <ion-col sizeLg="3" sizeMd="6" sizeXs="12" *ngFor="let foto of Fotos">
 
         <ion-card>
-          <ion-item [href]="foto.full_url" lines="none">
+          <ion-item [href]="foto.full_url" lines="none" target="_blank">
             <img [src]="foto.url" />
           </ion-item>
           <ion-card-header>
