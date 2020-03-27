@@ -8,7 +8,7 @@ import { Item } from '../classes/item';
   providedIn: 'root'
 })
 export class ItemsService {
-  apiURL = 'https://cms.naumann.hosting';
+  apiURL = 'https://cms.suhresuberisach.ch';
 
   constructor(private http: HttpClient) { }
 

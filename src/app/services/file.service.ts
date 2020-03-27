@@ -7,7 +7,7 @@ import { retry, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class FileService {
-  apiURL = 'https://cms.naumann.hosting';
+  apiURL = 'https://cms.suhresuberisach.ch';
 
   constructor(private http: HttpClient) { }
 

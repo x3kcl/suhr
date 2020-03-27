@@ -8,7 +8,7 @@ import { User } from '../classes/user';
   providedIn: 'root'
 })
 export class LoginService {
-  apiURL = 'https://cms.naumann.hosting';
+  apiURL = 'https://cms.suhresuberisach.ch';
 
   constructor(private http: HttpClient) { }
 
