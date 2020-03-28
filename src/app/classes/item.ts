@@ -11,9 +11,15 @@ export interface Item {
     status: string;
     owner: string;
     created_on: string;
+    documents_id?: string;
+    fotos_id?: string;
+    size?: string;
     title: string;
+    description?: string;
     url: string;
+    full_url?: string;
     redirectMode?: string;
+    filename_download?: string;
 }
 
 export interface Category {

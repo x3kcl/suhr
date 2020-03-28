@@ -3,6 +3,7 @@ import * as prettyBytes from 'pretty-bytes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemsService } from 'src/app/services/items.service';
 import { FileService } from 'src/app/services/file.service';
+import { Item } from 'src/app/classes/item';
 
 @Component({
   selector: 'app-foto',
@@ -45,18 +46,24 @@ export class FotoPage implements OnInit {
       const result = [];
       const url = '';
       for (const item of items) {
-        const tmp = {
+        let tmp: Item = {
           id: item.id,
           status: item.status,
           owner: item.owner.id,
           created_on: item.created_on,
           fotos_id: item.fotos_id.id,
-          url: item.file.data.thumbnails[3].url,
-          full_url: item.file.data.full_url,
-          title: item.title ? item.title : item.file.title,
-          description: item.description ? item.description : item.file.description,
-          size: prettyBytes(item.file.filesize)
+          url: "/assets/pictures/not-found-image.jpg",
+          title: "File not found",
+          filename_download: "not-found-image.jpg"
         };
+        if ( item.file && item.file.data ) {
+          tmp.url = item.file.data.thumbnails[3].url;
+          tmp.full_url = item.file.data.full_url;
+          tmp.title = item.title ? item.title : item.file.title;
+          tmp.description = item.description ? item.description : item.file.description;
+          tmp.size = prettyBytes(item.file.filesize);
+          tmp.filename_download = item.file.data.filename_download;
+        }
         console.log('item', item, tmp);
         result[result.length] = tmp;
       }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemsService } from '../services/items.service';
 import * as prettyBytes from 'pretty-bytes';
+import { Item } from '../classes/item';
 
 @Component({
   selector: 'app-items',
@@ -49,17 +50,22 @@ export class ItemsPage implements OnInit {
       const result = [];
       const url = '';
       for (const item of items) {
-        const tmp = {
+        let tmp: Item = {
           id: item.id,
           status: item.status,
           owner: item.owner.id,
           created_on: item.created_on,
           documents_id: item[ this.idname + '_id'].id,
-          url: item.file.data.full_url,
-          title: item.file.title,
-          size: prettyBytes(item.file.filesize),
-          filename_download: item.file.data.filename_download
+          url: "/assets/pictures/not-found-image.jpg",
+          title: "File not found",
+          filename_download: "not-found-image.jpg"
         };
+        if ( item.file && item.file.data ) {
+          tmp.url = item.file.data.full_url;
+          tmp.title = item.file.title;
+          tmp.size = prettyBytes(item.file.filesize);
+          tmp.filename_download = item.file.data.filename_download;
+        }
         if (item[ this.idname + '_id'].title) {
           const info = item[ this.idname + '_id'];
           console.log('title_id', info);
