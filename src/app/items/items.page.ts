@@ -50,15 +50,15 @@ export class ItemsPage implements OnInit {
       const result = [];
       const url = '';
       for (const item of items) {
-        let tmp: Item = {
+        const tmp: Item = {
           id: item.id,
           status: item.status,
           owner: item.owner.id,
           created_on: item.created_on,
           documents_id: item[ this.idname + '_id'].id,
-          url: "/assets/pictures/not-found-image.jpg",
-          title: "File not found",
-          filename_download: "not-found-image.jpg"
+          url: '/assets/pictures/not-found-image.jpg',
+          title: 'File not found',
+          filename_download: 'not-found-image.jpg'
         };
         if ( item.file && item.file.data ) {
           tmp.url = item.file.data.full_url;

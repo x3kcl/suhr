@@ -25,7 +25,13 @@ export class ImpressumPage implements OnInit {
   loadImpressum() {
     return this.restApi.getImpressum().subscribe((data) => {
       console.log(data.data[0]);
-      this.Card = data.data;
+      const items = data.data;
+      items.sort( ( item1: { id: number; }, item2: { id: number; } ) => {
+        if (item1.id < item2.id ) { return 1; }
+        if (item1.id > item2.id ) { return -1; }
+        return 0;
+      });
+      this.Card = items;
     });
   }
 
