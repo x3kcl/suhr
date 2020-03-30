@@ -2,7 +2,9 @@ export class Itemd {
     id: string;
     status: string;
     owner: string;
+    // tslint:disable-next-line: variable-name
     created_on: string;
+    // tslint:disable-next-line: variable-name
     documents_id: string;
 }
 

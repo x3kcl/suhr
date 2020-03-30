@@ -15,7 +15,7 @@ export class ImpressumPage implements OnInit {
     public restApi: CardService,
     private menu: MenuController,
   ) {
-    this.title = 'Impressum';
+    this.title = 'Über uns';
   }
 
   ngOnInit() {

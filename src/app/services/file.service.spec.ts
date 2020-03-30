@@ -6,6 +6,7 @@ describe('FileService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
+    // tslint:disable-next-line: deprecation
     const service: FileService = TestBed.get(FileService);
     expect(service).toBeTruthy();
   });

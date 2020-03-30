@@ -10,7 +10,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthModule } from './auth/auth.module';
 import { ComponentsModule } from './components/components.module';
 import { ImpressumComponent } from './components/impressum/impressum.component';
 
@@ -25,7 +24,6 @@ import { ImpressumComponent } from './components/impressum/impressum.component';
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
-    AuthModule,
     ComponentsModule,
   ],
   providers: [
