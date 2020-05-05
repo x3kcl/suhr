@@ -14,23 +14,14 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   
-  <ion-grid>
-    <ion-row >
-      <ion-col size="8">
-        <ion-item lines="none">
-          <img src="/assets/pictures/home/suhr.jpg" slot="start" class="suhr_smal" />
-        </ion-item>
-      </ion-col>
-      <ion-col size="4">
+  <ion-grid *ngFor="let card of Card">
+    <ion-row class="ion-justify-content-start">
+      <ion-col size="1" class="ion-align-self-center">
         <ion-item lines="none">
           <img src="/assets/pictures/home/logo_smal.png" slot="end" class="suhr_smal" />
         </ion-item>
       </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-grid *ngFor="let card of Card">
-    <ion-row>
-      <ion-col>
+      <ion-col size="6">
         <ion-card>
           <ion-card-header>
             <ion-card-title>{{ card.title }}</ion-card-title>
@@ -41,44 +32,50 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-    </ion-row>
-    <ion-row>
       <ion-col>
         <ion-card>
           <ion-card-header>
-            <ion-card-subtitle></ion-card-subtitle>
-            <ion-card-title>{{card.von.title}}</ion-card-title>
+            <ion-card-title>Hinweise:</ion-card-title>
+            <ion-card-subtitle><img src="/assets/pictures/home/home.jpg" /></ion-card-subtitle>
           </ion-card-header>
-          <ion-item [href]="card.von.data.full_url" lines="none">
-            <img [src]="card.von.data.thumbnails[3].url" />
-          </ion-item>
-          <ion-card-content [innerHTML]="card.von.description">
+          <ion-card-content>
+            <p>Der Internetauftritt von «Suhr e suberi Sach» ist optimiert auf die Browser Chrome, Firefox und MS Edge.</p>
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col>
-        <ion-card>
-          <ion-card-header>
-            <ion-card-subtitle></ion-card-subtitle>
-            <ion-card-title>{{card.zu.title}}</ion-card-title>
-          </ion-card-header>
-          <ion-item [href]="card.zu.data.full_url" lines="none">
+    </ion-row>
+    <ion-row>
+      <ion-col size="3">
+          <h3>{{card.von.title}}</h3>
+          <p>
+            <img [src]="card.von.data.thumbnails[3].url" />
+          </p>
+      </ion-col>
+      <ion-col size="3">
+          <h3>{{card.zu.title}}</h3>
+          <p>
             <img [src]="card.zu.data.thumbnails[3].url" />
-          </ion-item>
-          <ion-card-content [innerHTML]="card.zu.description">
-          </ion-card-content>
-        </ion-card>
+          </p>
+      </ion-col>
+      <ion-col class="ion-align-self-center">
+        <ion-item lines="none" href="http://benevol.ch"  target="_blank">
+          <img src="/assets/logo/Logo_Benevol_oben_4c.svg"  class="benevol"/>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="3">
+        <ion-item lines="none">
+          <img src="/assets/pictures/home/suhr.jpg" slot="start" class="suhr_smal" />
+        </ion-item>
+      </ion-col>
+      <ion-col class="ion-align-self-center">
+        <ion-text>Eine Initiative von Freiwilligenaus der der Gemeinde Suhr unterstützt durch die Gemeinde Suhr.</ion-text>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-item lines="none" href="http://benevol.ch"  target="_blank">
-    <img src="/assets/logo/Logo_Benevol_oben_4c.svg"  class="benevol"/>
-  </ion-item>
-  <br/>
-  <ion-item>
-    <img src="/assets/pictures/home/home.jpg" />
-    <ion-note>Der Internetauftritt von «Suhr e suberi Sach» ist optimiert auf die Browser Chrome, Firefox und MS Edge. Da Microsoft Windows 7 und den Browser IE11 nicht mehr unterstützt  bitten wir eventuelle Benutzer von IE11 die Navigation innerhalb des Web-Auftrittes mit den 3 Balken (siehe nebenstehende Darstellung) vorzunehmen</ion-note>
-  </ion-item>
+
+
 </ion-content>
 
 <app-impressum></app-impressum>
