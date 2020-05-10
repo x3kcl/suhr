@@ -45,6 +45,11 @@ export class AppComponent {
       title: 'Kontakt',
       url: '/contact',
       icon: 'mail-outline'
+    },
+    {
+      title: 'Mitglieder',
+      url: '/members',
+      icon: 'person-add-outline'
     }/*,
     {
       title: 'Login',

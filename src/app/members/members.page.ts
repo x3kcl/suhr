@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CardService } from '../services/card.service';
 
 @Component({
-  selector: 'app-links',
-  templateUrl: './links.page.html',
-  styleUrls: ['./links.page.scss'],
+  selector: 'app-members',
+  templateUrl: './members.page.html',
+  styleUrls: ['./members.page.scss'],
 })
-export class LinksPage implements OnInit {
-
+export class MembersPage implements OnInit {
   Card: any = [];
 
   constructor(
@@ -15,12 +14,11 @@ export class LinksPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadLinks()
+    this.loadMembers()
   }
 
-  // Get employees list
-  loadLinks() {
-    return this.restApi.getLinks().subscribe((data: {}) => {
+  loadMembers() {
+    return this.restApi.getMembers().subscribe((data: {}) => {
       // let items = data.
       // console.log(data['data'][0]);
       this.Card = data['data'];
@@ -28,10 +26,8 @@ export class LinksPage implements OnInit {
     })
   }
 
-
   doRefresh(event) {
-    this.loadLinks();
+    this.loadMembers();
     event.target.complete();
   }
-
 }

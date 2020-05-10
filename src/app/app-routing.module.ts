@@ -40,6 +40,10 @@ const routes: Routes = [
     loadChildren: () => import('./impressum/impressum.module').then( m => m.ImpressumPageModule)
   },
   {
+    path: 'members',
+    loadChildren: () => import('./members/members.module').then( m => m.MembersPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   }

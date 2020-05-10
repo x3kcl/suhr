@@ -51,6 +51,14 @@ export class CardService {
     );
   }
 
+  getMembers(): Observable<Card> {
+    return this.http.get<Card>(this.apiURL + '/_/items/members?filter[status][in]=published')
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
   // Error handling
   handleError(error: { error: { message: string; }; status: any; message: any; }) {
     let errorMessage = '';
