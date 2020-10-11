@@ -32,6 +32,7 @@ export class HomePage implements OnInit {
       //this.card = data.data[0];
       // console.log(this.Card);
       //console.log(this.card);
+      //Test
     });
   }
 
