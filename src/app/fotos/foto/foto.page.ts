@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import * as prettyBytes from 'pretty-bytes';
+//import * as prettyBytes from 'pretty-bytes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemsService } from 'src/app/services/items.service';
 import { FileService } from 'src/app/services/file.service';
 import { Item } from 'src/app/classes/item';
+import * as filesize from 'file-size';
 
 @Component({
   selector: 'app-foto',
@@ -61,7 +62,8 @@ export class FotoPage implements OnInit {
           tmp.full_url = item.file.data.full_url;
           tmp.title = item.title ? item.title : item.file.title;
           tmp.description = item.description ? item.description : item.file.description;
-          tmp.size = prettyBytes(item.file.filesize);
+          tmp.size = filesize(item.file.filesize).human();
+          //tmp.size = prettyBytes(item.file.filesize);
           tmp.filename_download = item.file.data.filename_download;
         }
         console.log('item', item, tmp);

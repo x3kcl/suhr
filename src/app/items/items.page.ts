@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemsService } from '../services/items.service';
-import * as prettyBytes from 'pretty-bytes';
+//import * as prettyBytes from 'pretty-bytes';
 import { Item } from '../classes/item';
+import * as filesize from 'file-size';
 
 @Component({
   selector: 'app-items',
@@ -63,7 +64,8 @@ export class ItemsPage implements OnInit {
         if ( item.file && item.file.data ) {
           tmp.url = item.file.data.full_url;
           tmp.title = item.file.title;
-          tmp.size = prettyBytes(item.file.filesize);
+          //tmp.size = prettyBytes(item.file.filesize);
+          tmp.size = filesize(item.file.filesize).human();
           tmp.filename_download = item.file.data.filename_download;
         }
         if (item[ this.idname + '_id'].title) {
