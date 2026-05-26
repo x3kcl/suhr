@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 @Component({
+  standalone: false,
   selector: 'app-impressum',
   templateUrl: './impressum.component.html',
   styleUrls: ['./impressum.component.scss'],

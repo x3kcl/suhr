@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemsService } from '../services/items.service';
-//import * as prettyBytes from 'pretty-bytes';
 import { Item } from '../classes/item';
-import * as filesize from 'file-size';
+import filesize from 'file-size';
 
 @Component({
+  standalone: false,
   selector: 'app-items',
   templateUrl: './items.page.html',
   styleUrls: ['./items.page.scss'],
@@ -19,6 +22,9 @@ export class ItemsPage implements OnInit {
   title = 'Kein Titel';
   subtitle = 'Kein Untertitel';
 
+  private destroyRef = inject(DestroyRef);
+  private refresh$ = new Subject<void>();
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -30,9 +36,12 @@ export class ItemsPage implements OnInit {
 
     console.log('Item got name ' + this.name + ' and id ' + this.id + ' id name ' + this.idname);
 
-    this.route.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.Item = this.router.getCurrentNavigation().extras.state.item;
+    this.route.queryParams.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(() => {
+      const nav = this.router.getCurrentNavigation();
+      if (nav?.extras?.state) {
+        this.Item = nav.extras.state['item'];
         console.log('Items', this.Item);
         this.subtitle = this.Item.title;
       }
@@ -40,51 +49,46 @@ export class ItemsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.loadItems();
-  }
-
-  loadItems() {
-    return this.items.getItem(this.name, this.id, this.idname).subscribe((data: any) => {
+    this.refresh$.pipe(
+      switchMap(() => this.items.getItem(this.name, this.id, this.idname)),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((data: any) => {
       this.Items = [];
       console.log(data);
       const items = data.data;
       const result = [];
-      const url = '';
       for (const item of items) {
         const tmp: Item = {
           id: item.id,
           status: item.status,
           owner: item.owner.id,
           created_on: item.created_on,
-          documents_id: item[ this.idname + '_id'].id,
+          documents_id: item[this.idname + '_id'].id,
           url: '/assets/pictures/not-found-image.jpg',
           title: 'File not found',
           filename_download: 'not-found-image.jpg'
         };
-        if ( item.file && item.file.data ) {
+        if (item.file && item.file.data) {
           tmp.url = item.file.data.full_url;
           tmp.title = item.file.title;
-          //tmp.size = prettyBytes(item.file.filesize);
           tmp.size = filesize(item.file.filesize).human();
           tmp.filename_download = item.file.data.filename_download;
         }
-        if (item[ this.idname + '_id'].title) {
-          const info = item[ this.idname + '_id'];
+        if (item[this.idname + '_id'].title) {
+          const info = item[this.idname + '_id'];
           console.log('title_id', info);
           this.title = info.title;
           this.subtitle = info.subtitle_id.title;
         }
-        // console.log("size", item.file.filesize);
         result[result.length] = tmp;
       }
       this.Items = result;
-
     });
+    this.refresh$.next();
   }
 
-  doRefresh(event: { target: { complete: () => void; }; }) {
-    this.loadItems();
+  doRefresh(event: { target: { complete: () => void } }) {
+    this.refresh$.next();
     event.target.complete();
   }
-
 }

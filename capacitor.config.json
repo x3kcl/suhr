@@ -1,8 +1,6 @@
 {
   "appId": "io.ionic.starter",
   "appName": "suhr",
-  "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "www",
-  "cordova": {}
+  "webDir": "www"
 }

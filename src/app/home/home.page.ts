@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { CardService } from '../services/card.service';
 import { MenuController } from '@ionic/angular';
-import { Card } from '../classes/card';
 
 @Component({
+  standalone: false,
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
@@ -11,29 +14,23 @@ import { Card } from '../classes/card';
 export class HomePage implements OnInit {
   Card: any = [];
 
+  private destroyRef = inject(DestroyRef);
+  private refresh$ = new Subject<void>();
+
   constructor(
     public restApi: CardService,
     private menu: MenuController,
   ) {}
 
   ngOnInit() {
-    this.loadCards();
-    this.openMenu();
-  }
-
-  // Get employees list
-  loadCards() {
-    return this.restApi.getCards().subscribe((data) => {
-      //let items = data.data[0];
-      //console.log(items);
+    this.refresh$.pipe(
+      switchMap(() => this.restApi.getCards()),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((data) => {
       this.Card = data.data;
-
-      //this.card = this.Card[0];
-      //this.card = data.data[0];
-      // console.log(this.Card);
-      //console.log(this.card);
-      //Test
     });
+    this.refresh$.next();
+    this.openMenu();
   }
 
   openMenu() {
@@ -41,9 +38,8 @@ export class HomePage implements OnInit {
     this.menu.open('main-content');
   }
 
-  doRefresh(event) {
-    this.loadCards();
+  doRefresh(event: { target: { complete: () => void } }) {
+    this.refresh$.next();
     event.target.complete();
   }
-
 }

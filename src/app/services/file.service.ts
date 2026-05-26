@@ -1,72 +1,50 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
-  apiURL = 'https://cms.suhresuberisach.ch';
+  private apiURL = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
-  // Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-  getFile(id): Observable<File> {
-    return this.http.get<File>(this.apiURL + '/_/files/' + id)
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-    );
-}
+  getFile(id: string): Observable<File> {
+    return this.http.get<File>(`${this.apiURL}/_/files/${encodeURIComponent(id)}`)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
   getFiles(): Observable<File> {
-      return this.http.get<File>(this.apiURL + '/_/files?filter[tags][in]=fotos')
-      .pipe(
-        retry(1),
-        catchError(this.handleError)
-      );
+    return this.http.get<File>(this.apiURL + '/_/files?filter[tags][in]=fotos')
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   getDocuments(): Observable<File> {
     return this.http.get<File>(this.apiURL + '/_/files?filter[tags][in]=documents')
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-    );
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   getStatistics(): Observable<File> {
     return this.http.get<File>(this.apiURL + '/_/files?filter[tags][in]=statistics')
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-    );
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   getPicked(): Observable<File> {
     return this.http.get<File>(this.apiURL + '/_/files?filter[tags][in]=picked')
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-    );
+      .pipe(retry(1), catchError(this.handleError));
   }
 
-    // Error handling 
-  handleError(error) {
-      let errorMessage = '';
-      if(error.error instanceof ErrorEvent) {
-        // Get client-side error
-        errorMessage = error.error.message;
-      } else {
-        // Get server-side error
-        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-      }
-      window.alert(errorMessage);
-      return throwError(errorMessage);
-   }
+  handleError(error: { error: { message: string }; status: any; message: any }) {
+    let errorMessage: string;
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = error.error.message;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(() => new Error(errorMessage));
+  }
 }

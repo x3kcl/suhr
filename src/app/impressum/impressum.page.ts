@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { CardService } from '../services/card.service';
-import { MenuController } from '@ionic/angular';
 
 @Component({
+  standalone: false,
   selector: 'app-impressum',
   templateUrl: './impressum.page.html',
   styleUrls: ['./impressum.page.scss'],
@@ -11,33 +14,31 @@ export class ImpressumPage implements OnInit {
   Card: any = [];
   title: string;
 
-  constructor(
-    public restApi: CardService,
-    private menu: MenuController,
-  ) {
-    this.title = 'Über uns'; 
+  private destroyRef = inject(DestroyRef);
+  private refresh$ = new Subject<void>();
+
+  constructor(public restApi: CardService) {
+    this.title = 'Über uns';
   }
 
   ngOnInit() {
-    this.loadImpressum();
-  }
-
-  loadImpressum() {
-    return this.restApi.getImpressum().subscribe((data) => {
-      console.log(data.data[0]);
+    this.refresh$.pipe(
+      switchMap(() => this.restApi.getImpressum()),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((data) => {
       const items = data.data;
-      items.sort( ( item1: { id: number; }, item2: { id: number; } ) => {
-        if (item1.id < item2.id ) { return 1; }
-        if (item1.id > item2.id ) { return -1; }
+      items.sort((item1: { id: number }, item2: { id: number }) => {
+        if (item1.id < item2.id) { return 1; }
+        if (item1.id > item2.id) { return -1; }
         return 0;
       });
       this.Card = items;
     });
+    this.refresh$.next();
   }
 
-  doRefresh(event) {
-    this.loadImpressum();
+  doRefresh(event: { target: { complete: () => void } }) {
+    this.refresh$.next();
     event.target.complete();
   }
-
 }

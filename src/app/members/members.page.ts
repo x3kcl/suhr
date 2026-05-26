@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { CardService } from '../services/card.service';
 
 @Component({
+  standalone: false,
   selector: 'app-members',
   templateUrl: './members.page.html',
   styleUrls: ['./members.page.scss'],
@@ -9,25 +13,23 @@ import { CardService } from '../services/card.service';
 export class MembersPage implements OnInit {
   Card: any = [];
 
-  constructor(
-    public restApi: CardService,
-  ) {}
+  private destroyRef = inject(DestroyRef);
+  private refresh$ = new Subject<void>();
+
+  constructor(public restApi: CardService) {}
 
   ngOnInit() {
-    this.loadMembers()
-  }
-
-  loadMembers() {
-    return this.restApi.getMembers().subscribe((data: {}) => {
-      // let items = data.
-      // console.log(data['data'][0]);
+    this.refresh$.pipe(
+      switchMap(() => this.restApi.getMembers()),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((data: {}) => {
       this.Card = data['data'];
-      // console.log(this.Card);
-    })
+    });
+    this.refresh$.next();
   }
 
-  doRefresh(event) {
-    this.loadMembers();
+  doRefresh(event: { target: { complete: () => void } }) {
+    this.refresh$.next();
     event.target.complete();
   }
 }

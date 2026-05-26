@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ItemsService } from '../services/items.service';
 import { Category, Subtitle, Item } from '../classes/item';
 
 @Component({
+  standalone: false,
   selector: 'app-item',
   templateUrl: './item.page.html',
   styleUrls: ['./item.page.scss'],
 })
-
 export class ItemPage implements OnInit {
   Items: any = [];
   name: string;
@@ -17,6 +20,9 @@ export class ItemPage implements OnInit {
   subtitle: string;
   idname: string;
   Categories: any = [];
+
+  private destroyRef = inject(DestroyRef);
+  private refresh$ = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
@@ -28,24 +34,24 @@ export class ItemPage implements OnInit {
     this.idname = this.route.snapshot.params.idname;
     console.log('Item got name ' + this.name + ' with sub name ' + this.subname + ' id name ' + this.idname);
   }
-  ngOnInit() {
-    this.loadItemSections();
-  }
 
-  loadItemSections() {
-    return this.items.getItems(this.name).subscribe((data: any ) => {
+  ngOnInit() {
+    this.refresh$.pipe(
+      switchMap(() => this.items.getItems(this.name)),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((data: any) => {
       this.Categories = [];
       console.log(data);
       const categoryMap = new Map();
       const items = data.data;
       const result = [];
-      for ( const item of items ) {
+      for (const item of items) {
         let url = '';
         console.log('title', item.title_id.redirect_id.title);
-        if ( item.title_id.redirect_id.title === 'items' ) {
+        if (item.title_id.redirect_id.title === 'items') {
           url = 'items/' + this.subname + '/' + item.id + '/' + this.idname;
         } else if (item.title_id.redirect_id.title === 'foto') {
-          url = 'foto/' + + item.id;
+          url = 'foto/' + item.id;
         }
         console.log('for', item, url);
         console.log(item.category_id);
@@ -62,9 +68,9 @@ export class ItemPage implements OnInit {
           this.title = item.title_id.title;
           this.subtitle = item.title_id.subtitle;
         }
-        if ( categoryMap.has(item.category_id.title) ) {
+        if (categoryMap.has(item.category_id.title)) {
           const subMap = categoryMap.get(item.category_id.title);
-          if ( subMap.has(item.subtitle_id.title) ) {
+          if (subMap.has(item.subtitle_id.title)) {
             const itemMap = subMap.get(item.subtitle_id.title);
             itemMap.set(item.subtitle_id.title, tmp);
           } else {
@@ -97,9 +103,9 @@ export class ItemPage implements OnInit {
           } else {
             category.subtitleList = [subtitle];
           }
-          category.subtitleList.sort( ( n1, n2 ) => {
-            if (n1.title > n2.title ) { return 1; }
-            if (n1.title < n2.title ) { return -1; }
+          category.subtitleList.sort((n1, n2) => {
+            if (n1.title > n2.title) { return 1; }
+            if (n1.title < n2.title) { return -1; }
             return 0;
           });
         });
@@ -109,24 +115,20 @@ export class ItemPage implements OnInit {
       console.log(categoryMap);
       console.log(this.Categories);
       this.Items = result;
-    } );
+    });
+    this.refresh$.next();
   }
 
-  openDetailsWithState(item: { id: string; title: string; url: string; }) {
+  openDetailsWithState(item: { id: string; title: string; url: string }) {
     const navigationExtras: NavigationExtras = {
-      state: {
-        item: {
-          id: item.id,
-          title: item.title
-        }
-      }
+      state: { item: { id: item.id, title: item.title } }
     };
     console.log(item);
-    this.router.navigate([ item.url ], navigationExtras);
+    this.router.navigate([item.url], navigationExtras);
   }
 
-  doRefresh(event: { target: { complete: () => void; }; }) {
-    this.loadItemSections();
+  doRefresh(event: { target: { complete: () => void } }) {
+    this.refresh$.next();
     event.target.complete();
   }
 }

@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-//import * as prettyBytes from 'pretty-bytes';
+import { Component, OnInit, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemsService } from 'src/app/services/items.service';
 import { FileService } from 'src/app/services/file.service';
 import { Item } from 'src/app/classes/item';
-import * as filesize from 'file-size';
+import filesize from 'file-size';
 
 @Component({
+  standalone: false,
   selector: 'app-foto',
   templateUrl: './foto.page.html',
   styleUrls: ['./foto.page.scss'],
@@ -18,6 +19,8 @@ export class FotoPage implements OnInit {
   myTitle = '';
   id: string;
 
+  private destroyRef = inject(DestroyRef);
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -27,11 +30,13 @@ export class FotoPage implements OnInit {
     this.id = this.route.snapshot.params.id;
     console.log('got id ' + this.id);
 
-    this.route.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.Foto = this.router.getCurrentNavigation().extras.state.item;
+    this.route.queryParams.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(() => {
+      const nav = this.router.getCurrentNavigation();
+      if (nav?.extras?.state) {
+        this.Foto = nav.extras.state['item'];
         this.myTitle = this.Foto.title;
-        // console.log("Foto", this.Foto);
       }
     });
   }
@@ -41,11 +46,11 @@ export class FotoPage implements OnInit {
   }
 
   loadFoto() {
-    return this.document.getFoto(this.id).subscribe((data: any) => {
-      // console.log(data);
+    return this.document.getFoto(this.id).pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((data: any) => {
       const items = data.data;
       const result = [];
-      const url = '';
       for (const item of items) {
         let tmp: Item = {
           id: item.id,
@@ -63,7 +68,6 @@ export class FotoPage implements OnInit {
           tmp.title = item.title ? item.title : item.file.title;
           tmp.description = item.description ? item.description : item.file.description;
           tmp.size = filesize(item.file.filesize).human();
-          //tmp.size = prettyBytes(item.file.filesize);
           tmp.filename_download = item.file.data.filename_download;
         }
         console.log('item', item, tmp);
